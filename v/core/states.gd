@@ -1,1 +1,6 @@
-extends Node
+extends RefCounted
+
+enum States {
+	LOADING,
+	APP
+}
