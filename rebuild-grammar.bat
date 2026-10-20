@@ -3,6 +3,7 @@ setlocal
 
 set GRAMMAR=D:\godot\shark\zed\plain\grammars\plain
 set REPO=D:\godot\shark
+set TREE_SITTER=D:\godot\shark\zed\plain\tree-sitter-plain\tree-sitter.exe
 
 set MSG=%~1
 if "%MSG%"=="" set MSG=update plain grammar
@@ -10,7 +11,7 @@ if "%MSG%"=="" set MSG=update plain grammar
 cd /d "%GRAMMAR%" || (echo [ERR] cd %GRAMMAR% & exit /b 1)
 
 echo === tree-sitter generate ===
-tree-sitter.exe generate
+%TREE_SITTER% generate
 if errorlevel 1 (echo [ERR] generate failed & exit /b 1)
 
 echo === git commit ===
