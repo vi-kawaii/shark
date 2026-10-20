@@ -1,0 +1,4 @@
+name = "Plain"
+grammar = "plain"
+path_suffixes = ["pln"]
+line_comments = []

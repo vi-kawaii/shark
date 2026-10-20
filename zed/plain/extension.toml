@@ -1,0 +1,10 @@
+id = "plain"
+name = "Plain"
+version = "0.1.0"
+schema_version = 1
+authors = ["You"]
+description = "Syntax highlighting for Plain language"
+
+[grammars.plain]
+repository = "file:///D:/godot/shark/zed/plain/tree-sitter-plain"
+rev = "685dbbe2bc7faef9e7659fc6933e003d25380f35"
