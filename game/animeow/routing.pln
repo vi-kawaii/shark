@@ -1,0 +1,14 @@
+routing:
+	loading
+	game
+		human
+			walk
+			run
+			idle
+		vehicle
+		dialog
+		cutscene
+	pause
+
+ui <- routing:
+	loading: black

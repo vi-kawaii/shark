@@ -1,6 +1,4 @@
 [gd_scene format=3 uid="uid://dtfomqg1qspb7"]
 
-[ext_resource type="Script" uid="uid://jmfojhbfoe0m" path="res://animeow/main.gd" id="1_ky1e1"]
-
 [node name="Main" type="Node3D" unique_id=1350606313]
 script = ExtResource("1_ky1e1")

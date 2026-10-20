@@ -1,23 +1,38 @@
-(model_decl name:   (identifier) @type)
-(model_decl parent: (identifier) @type)
+;; ---------- декларации моделей ----------
+(model_decl   name: (identifier) @type)
+(reopen_decl  name: (identifier) @type)
+(view_decl    name: (identifier) @type)
+(view_decl  parent: (identifier) @type)
 
-(field_decl name: (identifier) @property)
+;; ---------- поля в model_decl ----------
+(field_decl name:  (identifier) @property)
 (field_decl value: (number)     @number)
 (field_decl value: (string)     @string)
-(field_decl value: (identifier) @variable)
-(field_decl format: (string)    @string)
-(field_decl format: (identifier) @string)
 
-(operation model: (identifier) @type)
-(operation field: (identifier) @property)
-(operation value: (number)     @number)
-(operation value: (string)     @string)
+;; голые имена в -> X:
+(name_decl name: (identifier) @type)
 
-(query model: (identifier) @type)
-(query field: (identifier) @property)
+;; ---------- строки view_decl ----------
+;; path здесь — «что показываем» → property
+(view_row path: (path (identifier) @property))
+(view_row spec: (identifier) @string)
+(view_row spec: (number)     @number)
+(view_row spec: (string)     @string)
 
-(operator) @operator
-":" @punctuation.delimiter
-"?" @punctuation.special
+;; ---------- операции / запросы ----------
+;; path здесь — «с какой моделью работаем» → type
+(operation path:  (path (identifier) @type))
+(operation op:    (operator) @operator)
+(operation value: (number)   @number)
+(operation value: (string)   @string)
+
+(query path:   (path (identifier) @type))
+(query format: (identifier) @string)
+(query format: (number)     @number)
+(query format: (string)     @string)
+
+;; ---------- пунктуация / ключевые токены ----------
+"->" @keyword
 "<-" @keyword
-(identifier) @variable
+":"  @punctuation.delimiter
+"?"  @punctuation.special
