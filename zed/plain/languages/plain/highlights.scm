@@ -1,43 +1,32 @@
-; --- ключевые слова ---
-[
-  "create" "based" "on" "with"
-  "number" "string" "is"
-  "get" "from"
-  "have" "which"
-  "add"
-  "and"
-  "store"
-] @keyword
-
-(print_statement) @keyword
+; --- пунктуация и операторы ---
+[":" "?"] @punctuation.delimiter
+"<-" @operator
+(operator) @operator
 
 ; --- объявление модели ---
-(create_statement name: (identifier) @type.definition)
-(create_statement base: (identifier) @type)
+(model_decl name: (identifier) @type.definition)
+(model_decl parent: (identifier) @type)
 
-; --- поля модели ---
-(property name: (identifier) @property)
-(property value: (value (number)     @number))
-(property value: (value (string)     @string))
-(property value: (value (identifier) @variable))
+; --- поля ---
+(field_decl name: (identifier) @property)
+(field_decl value: (number)     @number)
+(field_decl value: (string)     @string)
+(field_decl value: (identifier) @variable)
 
-; --- временная переменная ---
-(have_statement local: (identifier) @variable.local)
-(have_statement value: (value (number)     @number))
-(have_statement value: (value (string)     @string))
-(have_statement value: (value (identifier) @variable))
-(have_statement model: (identifier) @type)
+(field_decl format: (identifier) @string.special)
+(field_decl format: (string)     @string.special)
+(field_decl format: (number)     @number.special)
 
-; --- get ---
-(get_statement target: (value (identifier) @variable))
-(get_statement target: (value (number)     @number))
-(get_statement target: (value (string)     @string))
-(get_statement model: (identifier) @type)
+; --- операция над полем ---
+(operation model: (identifier) @type)
+(operation field: (identifier) @property)
+(operation value: (number)     @number)
+(operation value: (string)     @string)
+(operation value: (identifier) @variable)
 
-; --- add ---
-(add_statement value: (value (number)     @number))
-(add_statement value: (value (string)     @string))
-(add_statement value: (value (identifier) @variable))
+; --- запрос ---
+(query model: (identifier) @type)
+(query field: (identifier) @property)
 
 ; --- запасной вариант ---
 (identifier) @variable

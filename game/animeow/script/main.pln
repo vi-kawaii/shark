@@ -1,12 +1,10 @@
-create player store based on store with
-	number of money is 1k and
-	string of name is Some Cool Name With Spaces Yeah
+player:
+	money 1000
+    name Some Cool Name With Spaces Yeah
 
-get money from player store and
-	print
+hud <- player:
+    money: k
+    name: AaAa
 
-have m which is money from player store
-
-get m and
-	add 20
-	print
+player money +20
+player money ?
