@@ -1,12 +1,12 @@
 create player store based on store with
-    number of money is 1k and
-    string of name is Some Cool Name With Spaces Yeah
+	number of money is 1k and
+	string of name is Some Cool Name With Spaces Yeah
 
 get money from player store and
-    print
+	print
 
 have m which is money from player store
 
 get m and
-    add 20
-    print
+	add 20
+	print
