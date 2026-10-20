@@ -3,7 +3,7 @@ setlocal
 
 set GRAMMAR=D:\godot\shark\zed\plain\grammars\plain
 set REPO=D:\godot\shark
-set TREE_SITTER=D:\godot\shark\zed\plain\tree-sitter-plain\tree-sitter.exe
+set TREE_SITTER=D:\godot\shark\tree-sitter.exe
 
 set MSG=%~1
 if "%MSG%"=="" set MSG=update plain grammar
