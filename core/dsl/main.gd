@@ -1,6 +1,6 @@
 extends RefCounted
 
-const DslInputScript = preload("res://core/dsl/input.gd")
+const dsl_input = preload("res://core/dsl/input.gd")
 const DslLexerScript = preload("res://core/dsl/lexer.gd")
 const DslParserScript = preload("res://core/dsl/parser.gd")
 const DslOutputScript = preload("res://core/dsl/output.gd")
@@ -28,8 +28,7 @@ static func run_string(src: String) -> Dictionary:
 	}
 
 static func run_file(path: String) -> Dictionary:
-	var inp = DslInputScript.new()
-	return run_string(inp.from_file(path))
+	return run_string(dsl_input.from_file(path))
 
 static func demo() -> Dictionary:
 	print(42)
