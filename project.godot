@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="shark"
-run/main_scene="uid://chnc3pujck3wv"
+run/main_scene="uid://2g2r6ticsvb3"
 config/features=PackedStringArray("4.8", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false

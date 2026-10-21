@@ -7,3 +7,6 @@ static func get_save_path_for(project_name: String) -> String:
 
 static func get_store_path_for(project_name: String) -> String:
 	return "{}.store".format(project_name)
+
+static func get_project_path_for(project_name: String) -> String:
+	return ""

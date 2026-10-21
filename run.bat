@@ -3,6 +3,6 @@ setlocal
 
 set "GODOT=%~dp0..\godot.exe"
 
-"%GODOT%" --headless --path "%~dp0." --script "res://core/run/main.gd" -- %*
+"%GODOT%" --path "%~dp0."
 
 exit /b %ERRORLEVEL%
