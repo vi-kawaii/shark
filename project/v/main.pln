@@ -1,0 +1,10 @@
+player:
+	money 1000
+	name Some Cool Name With Spaces Yeah
+
+hud <- player:
+	money: k
+	name: AaAa
+
+player money +20
+player money ?

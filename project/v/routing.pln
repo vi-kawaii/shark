@@ -1,0 +1,31 @@
+routing:
+  loading
+  game
+  pause
+
+-> game:
+  human
+  vehicle
+  dialog
+  cutscene
+
+-> human:
+  walk
+  idle
+  run
+
+ui <- routing:
+  loading: black
+  game human run: something
+  pause: blur
+
+player:
+  money 1000
+  name Some Cool Name With Spaces Yeah
+
+hud <- player:
+  money: k
+  name: AaAa
+
+player money +20
+player money ?
