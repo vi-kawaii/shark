@@ -26,10 +26,7 @@
 (operation value: (number)   @number)
 (operation value: (string)   @string)
 
-(query path:   (path (identifier) @type))
-(query format: (identifier) @string)
-(query format: (number)     @number)
-(query format: (string)     @string)
+(query path: (path (identifier) @type))
 
 ;; ---------- пунктуация / ключевые токены ----------
 "->" @keyword
