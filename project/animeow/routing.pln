@@ -1,31 +1,31 @@
 routing:
-  loading
-  game
-  pause
+	loading
+	game
+	pause
 
 -> game:
-  human
-  vehicle
-  dialog
-  cutscene
+	human
+	vehicle
+	dialog
+	cutscene
 
 -> human:
-  walk
-  idle
-  run
+	walk
+	idle
+	run
 
 ui <- routing:
-  loading: black
-  game human run: something
-  pause: blur
+	loading: black
+	game human run: something
+	pause: blur
 
 player:
-  money 1000
-  name Some Cool Name With Spaces Yeah
+	money 1000
+	name Some Cool Name With Spaces Yeah
 
 hud <- player:
-  money: k
-  name: AaAa
+	money: k
+	name: AaAa
 
 player money +20
 player money ?
