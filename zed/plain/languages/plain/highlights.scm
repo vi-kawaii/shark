@@ -1,5 +1,5 @@
 ;; ---------- декларации моделей ----------
-; (model_decl   name: (identifier) @type)
+(model_decl   name: (identifier) @type)
 (reopen_decl  name: (identifier) @type)
 (view_decl    name: (identifier) @type)
 (view_decl  parent: (identifier) @type)
