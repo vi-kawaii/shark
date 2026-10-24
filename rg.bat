@@ -1,4 +1,4 @@
-@echo off
+cls
 setlocal
 
 set GRAMMAR=D:\godot\shark\zed\plain\grammars\plain
