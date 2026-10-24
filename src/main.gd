@@ -1,14 +1,7 @@
-extends Node
+extends "res://src/core/exit_on_esc.gd"
 
-const animeow = preload("res://src/animeow/main.gd")
-const v = preload("res://src/v/main.gd")
+const resolve_target = preload("res://src/core/resolve_target.gd")
 
 func _ready():
 	print("hi world, its shark 🦈")
-
-	print(animeow.main())
-	print(v.main())
-
-func _input(event):
-	if event.is_action_pressed("ui_cancel"):
-		get_tree().quit()
+	print(resolve_target.main())
