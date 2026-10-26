@@ -2,11 +2,14 @@ extends Node3D
 
 const WORLD_SCENE := preload("res://scenes/world/main.tscn")
 const PLAYER_SCENE := preload("res://player/main.tscn")
+const LEVEL_SCENE := preload("res://scenes/world/level_1/main.tscn")
+
 const _save := preload("res://core/savemanager.gd")
 
 var savefile
 var world
 var player
+var level
 
 func _ready() -> void:
 	print("hi world, its shark 🦈")
@@ -22,6 +25,9 @@ func _ready() -> void:
 
 	world = WORLD_SCENE.instantiate()
 	add_child(world)
+
+	level = LEVEL_SCENE.instantiate()
+	world.add_child(level)
 
 	player = PLAYER_SCENE.instantiate()
 	world.add_child(player)

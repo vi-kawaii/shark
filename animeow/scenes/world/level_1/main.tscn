@@ -3,9 +3,10 @@
 [ext_resource type="Script" uid="uid://t3nqihx684mg" path="res://scenes/world/level_1/main.gd" id="1_xrvpi"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_xrvpi"]
+size = Vector2(20, 20)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xrvpi"]
-size = Vector3(2, 0, 2)
+size = Vector3(20, 0.5, 20)
 
 [node name="Main" type="Node3D" unique_id=2024932084]
 script = ExtResource("1_xrvpi")
@@ -18,4 +19,5 @@ mesh = SubResource("PlaneMesh_xrvpi")
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=785614863]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1324739486]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 shape = SubResource("BoxShape3D_xrvpi")
