@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://sjybsr5lyyfi"]
+
+[ext_resource type="Script" uid="uid://t3nqihx684mg" path="res://scenes/world/level_1/main.gd" id="1_xrvpi"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xrvpi"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xrvpi"]
+size = Vector3(2, 0, 2)
+
+[node name="Main" type="Node3D" unique_id=2024932084]
+script = ExtResource("1_xrvpi")
+
+[node name="Visual" type="Node3D" parent="." unique_id=655011694]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=1681667171]
+mesh = SubResource("PlaneMesh_xrvpi")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=785614863]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1324739486]
+shape = SubResource("BoxShape3D_xrvpi")

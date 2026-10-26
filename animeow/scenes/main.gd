@@ -1,4 +1,4 @@
-extends "res://core/exit_on_esc.gd"
+extends Node3D
 
 const WORLD_SCENE := preload("res://scenes/world/main.tscn")
 const PLAYER_SCENE := preload("res://player/main.tscn")

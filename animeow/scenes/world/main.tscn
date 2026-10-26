@@ -2,5 +2,21 @@
 
 [ext_resource type="Script" uid="uid://gmfpjburyhi6" path="res://scenes/world/main.gd" id="1_0wkb6"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qip8x"]
+
+[sub_resource type="Sky" id="Sky_mli2r"]
+sky_material = SubResource("ProceduralSkyMaterial_qip8x")
+
+[sub_resource type="Environment" id="Environment_0wkb6"]
+background_mode = 2
+background_color = Color(0.2231029, 0.2231029, 0.22310287, 1)
+sky = SubResource("Sky_mli2r")
+
 [node name="Main" type="Node3D" unique_id=687353330]
 script = ExtResource("1_0wkb6")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1700659200]
+environment = SubResource("Environment_0wkb6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=577016674]
+transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 0, 0)
