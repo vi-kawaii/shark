@@ -1,20 +1,29 @@
 extends "res://core/exit_on_esc.gd"
 
-const save := preload("res://core/savemanager.gd")
-const player := preload("res://player/main.tscn")
+const WORLD_SCENE := preload("res://scenes/world/main.tscn")
+const PLAYER_SCENE := preload("res://player/main.tscn")
+const _save := preload("res://core/savemanager.gd")
+
+var savefile
+var world
+var player
 
 func _ready() -> void:
 	print("hi world, its shark 🦈")
 
-	var s = save.read()
-	if s == null:
-		s = SaveFile.new()
-		s.data = {"visits": 0}
-	s.data.visits = int(s.data.get("visits", 0)) + 1
-	save.write(s)
-	print("shark visits = ", s.data.visits)
+	savefile = _save.read()
+	if savefile == null:
+		savefile = SaveFile.new()
+		savefile.data = {"visits": 0}
+	savefile.data.visits = int(savefile.data.get("visits", 0)) + 1
+	_save.write(savefile)
 
-	var p = player.instantiate()
-	add_child(p)
+	print("shark visits = ", savefile.data.visits)
 
-	p.camera_rig.camera.make_current()
+	world = WORLD_SCENE.instantiate()
+	add_child(world)
+
+	player = PLAYER_SCENE.instantiate()
+	world.add_child(player)
+
+	player.camera_rig.camera.make_current()
