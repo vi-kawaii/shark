@@ -1,6 +1,6 @@
-extends "res://src/exit_on_esc.gd"
+extends "res://core/exit_on_esc.gd"
 
-const save = preload("res://src/savemanager.gd")
+const save = preload("res://core/savemanager.gd")
 
 func _ready():
 	print("hi world, its shark 🦈")
