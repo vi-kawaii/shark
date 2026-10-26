@@ -1,5 +1,4 @@
 extends Node3D
-class_name CameraRig
 
 @export var mouse_sensitivity := 0.002
 @export var camera_smoothness := 18.0

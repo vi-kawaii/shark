@@ -1,11 +1,12 @@
 extends CharacterBody3D
-class_name Player
 
 const state := preload("res://player/state/main.gd")
 
 const crouch := preload("res://player/move/crouch.gd")
 const horizontal := preload("res://player/move/horizontal.gd")
 const vertical := preload("res://player/move/vertical.gd")
+
+const camera := preload("res://player/camera/main.gd")
 
 @export var walk_speed := 5.0
 @export var run_speed := 9.0
@@ -20,7 +21,7 @@ const vertical := preload("res://player/move/vertical.gd")
 @export var stand_camera_height := 1.6
 @export var crouch_camera_height := 1.0
 
-@onready var camera_rig: CameraRig = $CameraPivot
+@onready var camera_rig: camera = $CameraPivot
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
