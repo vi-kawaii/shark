@@ -1,17 +1,24 @@
 [gd_scene format=3 uid="uid://0m48rx51s0qc"]
 
 [ext_resource type="Script" uid="uid://l3seixk7oq5t" path="res://player/main.gd" id="1_37jte"]
-[ext_resource type="Script" uid="uid://chfehryvjbk5w" path="res://player/camera/main.gd" id="2_hf4mc"]
+[ext_resource type="PackedScene" uid="uid://c5ww3x5g4a2fp" path="res://player/camera/main.tscn" id="2_hf4mc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r74gf"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xrvpi"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_37jte"]
-radius = 0.2
-
 [node name="Main" type="CharacterBody3D" unique_id=889799690]
 script = ExtResource("1_37jte")
+walk_speed = null
+run_speed = null
+crouch_speed = null
+jump_velocity = null
+acceleration = null
+air_acceleration = null
+friction = null
+crouch_height_ratio = null
+stand_camera_height = null
+crouch_camera_height = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=48554026]
 shape = SubResource("CapsuleShape3D_r74gf")
@@ -21,11 +28,4 @@ shape = SubResource("CapsuleShape3D_r74gf")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=974544574]
 mesh = SubResource("CapsuleMesh_xrvpi")
 
-[node name="CameraPivot" type="Node3D" parent="." unique_id=1101448006]
-script = ExtResource("2_hf4mc")
-
-[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" unique_id=1708022806]
-shape = SubResource("SphereShape3D_37jte")
-spring_length = 4.0
-
-[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D" unique_id=1600255207]
+[node name="CameraRig" parent="." unique_id=159897806 instance=ExtResource("2_hf4mc")]

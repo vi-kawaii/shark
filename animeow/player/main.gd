@@ -6,7 +6,7 @@ const crouch := preload("res://player/move/crouch.gd")
 const horizontal := preload("res://player/move/horizontal.gd")
 const vertical := preload("res://player/move/vertical.gd")
 
-const camera := preload("res://player/camera/main.gd")
+const CAMERA_SCENE := preload("res://player/camera/main.tscn")
 
 @export var walk_speed := 5.0
 @export var run_speed := 9.0
@@ -21,7 +21,7 @@ const camera := preload("res://player/camera/main.gd")
 @export var stand_camera_height := 1.6
 @export var crouch_camera_height := 1.0
 
-@onready var camera_rig: camera = $CameraPivot
+@onready var camera_rig
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -30,6 +30,9 @@ var _default_height: float
 var _capsule: CapsuleShape3D
 
 func _ready() -> void:
+	camera_rig = CAMERA_SCENE.instantiate()
+	add_child(camera_rig)
+
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	_capsule = collision_shape.shape as CapsuleShape3D
 	_default_height = _capsule.height

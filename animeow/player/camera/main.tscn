@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://c5ww3x5g4a2fp"]
+
+[ext_resource type="Script" uid="uid://chfehryvjbk5w" path="res://player/camera/main.gd" id="1_dkde6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_37jte"]
+radius = 0.2
+
+[node name="CameraRig" type="Node3D" unique_id=159897806]
+script = ExtResource("1_dkde6")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=791102620]
+shape = SubResource("SphereShape3D_37jte")
+spring_length = 4.0
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=1432331271]
