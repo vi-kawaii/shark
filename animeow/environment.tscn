@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://b0gj58h7e41qp"]
 
-[ext_resource type="Script" uid="uid://gmfpjburyhi6" path="res://scenes/world/main.gd" id="1_0wkb6"]
+[sub_resource type="GDScript" id="GDScript_f2f3m"]
+script/source = "extends Node
+"
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qip8x"]
 
@@ -13,7 +15,7 @@ background_color = Color(0.2231029, 0.2231029, 0.22310287, 1)
 sky = SubResource("Sky_mli2r")
 
 [node name="Main" type="Node3D" unique_id=687353330]
-script = ExtResource("1_0wkb6")
+script = SubResource("GDScript_f2f3m")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1700659200]
 environment = SubResource("Environment_0wkb6")

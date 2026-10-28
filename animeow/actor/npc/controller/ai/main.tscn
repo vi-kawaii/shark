@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://ddsv6r4qi6sa3"]
-
-[ext_resource type="Script" uid="uid://gd3080r4tkaq" path="res://actor/vehicle/controller/ai/main.gd" id="1_gwdrd"]
-
-[node name="Main" type="Node" unique_id=113418275]
-script = ExtResource("1_gwdrd")

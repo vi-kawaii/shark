@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c5ww3x5g4a2fp"]
 
-[ext_resource type="Script" uid="uid://chfehryvjbk5w" path="res://player/camera/main.gd" id="1_dkde6"]
+[ext_resource type="Script" uid="uid://chfehryvjbk5w" path="res://camera_rig.gd" id="1_dkde6"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_37jte"]
 radius = 0.2

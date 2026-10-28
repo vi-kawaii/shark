@@ -1,4 +1,4 @@
-extends Object
+extends Node
 
 const SAVE_DIR := "user://saves/"
 

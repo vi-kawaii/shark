@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://0m48rx51s0qc"]
 
-[ext_resource type="Script" uid="uid://l3seixk7oq5t" path="res://player/main.gd" id="1_37jte"]
-[ext_resource type="PackedScene" uid="uid://c5ww3x5g4a2fp" path="res://player/camera/main.tscn" id="2_hf4mc"]
+[ext_resource type="Script" uid="uid://l3seixk7oq5t" path="res://player.gd" id="1_37jte"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r74gf"]
 
@@ -27,5 +26,3 @@ shape = SubResource("CapsuleShape3D_r74gf")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=974544574]
 mesh = SubResource("CapsuleMesh_xrvpi")
-
-[node name="CameraRig" parent="." unique_id=159897806 instance=ExtResource("2_hf4mc")]
