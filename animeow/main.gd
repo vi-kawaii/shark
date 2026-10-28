@@ -2,11 +2,13 @@ extends Node3D
 
 const _player := preload("res://player.tscn")
 const _level := preload("res://level/1.tscn")
+const _environment := preload("res://environment.tscn")
 const _save := preload("res://save.gd")
 
 var savefile
 var player
 var level
+var environment
 
 func _ready() -> void:
 	print("hi world, its shark 🦈")
@@ -19,6 +21,9 @@ func _ready() -> void:
 	_save.write(savefile)
 
 	print("shark visits = ", savefile.data.visits)
+
+	environment = _environment.instantiate()
+	add_child(environment)
 
 	level = _level.instantiate()
 	add_child(level)
