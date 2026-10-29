@@ -3,14 +3,23 @@ extends Node3D
 const _player := preload("res://player.tscn")
 const _level := preload("res://level/1.tscn")
 const _environment := preload("res://environment.tscn")
+const _loading := preload("res://loading.tscn")
+
 const _save := preload("res://save.gd")
 
-var savefile
 var player
 var level
 var environment
+var loading
+
+var savefile
 
 func _ready() -> void:
+	loading = _loading.instantiate()
+	add_child(loading)
+
+	loading.start()
+
 	print("hi world, its shark 🦈")
 
 	savefile = _save.read()
@@ -32,3 +41,5 @@ func _ready() -> void:
 	add_child(player)
 
 	player.camera_rig.camera.make_current()
+
+	loading.finish()
