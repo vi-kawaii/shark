@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://t3jn2m5nri3m"]
+
+[ext_resource type="Script" uid="uid://o5usdfrwvsmw" path="res://control_panel.gd" id="1_wwxm1"]
+
+[node name="ControlPanel" type="VBoxContainer" unique_id=1698299474]
+size_flags_horizontal = 10
+script = ExtResource("1_wwxm1")
+
+[node name="Button" type="Button" parent="." unique_id=949162367]
+layout_mode = 2
+text = "One"
+
+[node name="Button2" type="Button" parent="." unique_id=1073977407]
+layout_mode = 2
+text = "Two"
+
+[node name="Button3" type="Button" parent="." unique_id=617092819]
+layout_mode = 2
+text = "Three"
