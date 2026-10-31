@@ -6,3 +6,14 @@ extends Node2D
 # like in windows xp and older vibes
 # just like i made in web but in godot
 # basically just simple images, simple moving, and sounds
+
+#var d_sum = 0
+#const d_speed = 4
+#const amplitude = 12
+#
+#func _ready():
+#	pass
+#
+#func _process(d):
+#	d_sum += d
+#	position.y = ((sin(d_sum) * d_speed) ** 0.5) * amplitude
