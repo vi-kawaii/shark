@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://chnc3pujck3wv"]
 
 [ext_resource type="Script" uid="uid://4up43j3bvm4l" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://c83qenucoqnq0" path="res://addons/godothttpserver/server/http_server.gd" id="2_0xm2m"]
 
 [node name="Main" type="HBoxContainer" unique_id=1700824363]
 anchors_preset = 15
@@ -9,3 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ig7tw")
+
+[node name="HTTPServer" type="Node" parent="." unique_id=1959710529]
+script = ExtResource("2_0xm2m")
+metadata/_custom_type_script = "uid://c83qenucoqnq0"

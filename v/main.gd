@@ -9,6 +9,8 @@ var control_panel
 var preview
 var save
 
+@onready var server = $HTTPServer
+
 func _ready():
 	print("hi world, its shark 🦈")
 
@@ -26,3 +28,9 @@ func _ready():
 
 	control_panel = _control_panel.instantiate()
 	add_child(control_panel)
+
+	server.router.handle_get("/", func(_p, _q, _h, _b):
+		var s = "Hello world, the counter of shark visits is {0}".format([save.data.visits])
+		return HTTPResponse.ok(s)
+	)
+	server.start(8080)
