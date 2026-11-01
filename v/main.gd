@@ -29,6 +29,10 @@ func _ready():
 	control_panel = _control_panel.instantiate()
 	add_child(control_panel)
 
+	_server()
+
+func _server():
+	server.use(StaticFileMiddleware.new())
 	server.router.handle_get("/", func(_p, _q, _h, _b):
 		var s = "Hello world, the counter of shark visits is {0}".format([save.data.visits])
 		return HTTPResponse.ok(s)

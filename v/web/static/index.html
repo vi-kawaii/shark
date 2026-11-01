@@ -1,0 +1,6 @@
+<button id="change">Change emotion</button>
+<script>
+document.querySelector("#change").onclick = function() {
+	fetch("/").then(res => res.text()).then(txt => console.log(txt))
+}
+</script>
