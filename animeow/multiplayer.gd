@@ -16,3 +16,9 @@ func create_client():
 
 func go_offline():
 	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
+
+func decide_if_server_or_client():
+	if "--server" in OS.get_cmdline_user_args():
+		return "server"
+	else:
+		return "client"

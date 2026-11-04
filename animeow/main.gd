@@ -7,12 +7,16 @@ const _loading := preload("res://loading.tscn")
 
 const _save := preload("res://save.gd")
 
+const _multiplayer := preload("res://multiplayer.gd")
+
 var player
 var level
 var environment
 var loading
 
 var savefile
+
+var mp
 
 func _ready() -> void:
 	loading = _loading.instantiate()
@@ -30,6 +34,15 @@ func _ready() -> void:
 	_save.write(savefile)
 
 	print("shark visits = ", savefile.data.visits)
+
+	mp = _multiplayer.new()
+	add_child(mp)
+
+	var decision = mp.decide_if_server_or_client()
+	if decision == "server":
+		mp.create_server()
+	elif decision == "client":
+		mp.create_client()
 
 	environment = _environment.instantiate()
 	add_child(environment)
