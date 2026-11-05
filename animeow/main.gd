@@ -9,6 +9,8 @@ const _save := preload("res://save.gd")
 
 const _multiplayer := preload("res://multiplayer.gd")
 
+const _watcher := preload("res://watcher.gd")
+
 var player
 var level
 var environment
@@ -18,7 +20,15 @@ var savefile
 
 var mp
 
+var _watcher_instance: Node
+
+
 func _ready() -> void:
+	_build()
+	_watcher_instance = _watcher.attach(self)
+
+
+func _build() -> void:
 	loading = _loading.instantiate()
 	add_child(loading)
 
@@ -54,9 +64,28 @@ func _ready() -> void:
 	var view = GmlView.new()
 	view.html_path = "res://hello_world.html"
 	view.css_path = "res://hello_world.css"
+	view.set_anchors_preset(Control.PRESET_FULL_RECT)
 
 	view.button_clicked.connect(func(m):
 		print(m)
 	)
 
 	add_child(view)
+
+
+func restart() -> void:
+	print("[main] пересоздаю сцену")
+
+	# сносим всех детей, кроме вотчера
+	for child in get_children():
+		if child == _watcher_instance:
+			continue
+		child.queue_free()
+
+	await get_tree().process_frame
+	await get_tree().process_frame
+
+	_build()
+
+	if _watcher_instance:
+		_watcher_instance.reset()

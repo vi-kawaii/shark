@@ -23,3 +23,7 @@ trim_trailing_whitespace = false
 [*.{tscn,tres,godot,json}]
 indent_style = space
 indent_size = 4
+
+[*.{html,css}]
+indent_style = space
+indent_size = 2
