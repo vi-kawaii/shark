@@ -38,12 +38,6 @@ func _ready() -> void:
 	mp = _multiplayer.new()
 	add_child(mp)
 
-	var decision = mp.decide_if_server_or_client()
-	if decision == "server":
-		mp.create_server()
-	elif decision == "client":
-		mp.create_client()
-
 	environment = _environment.instantiate()
 	add_child(environment)
 
