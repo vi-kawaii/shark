@@ -1,0 +1,24 @@
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 48px;
+    background-color: #1a1a2e;
+}
+
+h1 {
+    color: #e0e0ff;
+    font-size: 40px;
+}
+
+button {
+    background-color: #16213e;
+    color: #e0e0ff;
+    padding: 12px 24px;
+    border-radius: 6px;
+    border: 1px solid #4a4a8a;
+}
+
+button:hover {
+    background-color: #4a4a8a;
+}

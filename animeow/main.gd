@@ -50,3 +50,13 @@ func _ready() -> void:
 	player.camera_rig.camera.make_current()
 
 	loading.finish()
+
+	var view = GmlView.new()
+	view.html_path = "res://hello_world.html"
+	view.css_path = "res://hello_world.css"
+
+	view.button_clicked.connect(func(m):
+		print(m)
+	)
+
+	add_child(view)
