@@ -61,16 +61,11 @@ func _build() -> void:
 
 	loading.finish()
 
-	var view = GmlView.new()
-	view.html_path = "res://hello_world.html"
-	view.css_path = "res://hello_world.css"
-	view.set_anchors_preset(Control.PRESET_FULL_RECT)
+	
 
-	view.button_clicked.connect(func(m):
-		print(m)
-	)
+	view.set_state({"hp": 100, "gun": 7})
 
-	add_child(view)
+	add_child(ui.get("hud"))
 
 
 func restart() -> void:

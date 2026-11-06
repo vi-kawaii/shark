@@ -1,0 +1,20 @@
+.hud {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  align-content: space-between;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.hud-item {
+  padding: 15px;
+  pointer-events: auto;
+}
