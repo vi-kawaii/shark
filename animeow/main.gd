@@ -61,11 +61,18 @@ func _build() -> void:
 
 	loading.finish()
 
-	
+	# 1. Создаст HUD, добавит его на текущую ноду (self) и вернет объект в view
+	var view = ui.get_view("hud").add(self)
 
-	view.set_state({"hp": 100, "gun": 7})
+	# 2. Передаст состояние (внутренний метод проверит наличие поля state в GmlView)
+	ui.get_view("hud").set_state({"hp": 100, "gun": 7})
 
-	add_child(ui.get("hud"))
+	# 3. Полностью удалит HUD с экрана, сотрет его из кэша и очистит память
+	# ui.get("hud").clear()
+
+	# view.set_state({"hp": 100, "gun": 7})
+
+	#add_child(ui.get("hud"))
 
 
 func restart() -> void:
