@@ -1,37 +1,27 @@
 extends Control
 
-const _control_panel = preload("res://control_panel.tscn")
-const _preview = preload("res://preview.tscn")
+@onready const control_panel = preload("res://control_panel.tscn").instantiate()
+@onready const preview = preload("res://preview.tscn").instantiate()
 
-const _save = preload("res://save.gd")
+@onready const save = preload("res://save.gd")
 
-var control_panel
-var preview
-var save
-
-@onready var server = $HTTPServer
+@onready const server = $HTTPServer
 
 func _ready():
 	print("hi world, its shark 🦈")
 
-	save = _save.read()
+	save = save.read()
 	if save == null:
-		save = SaveFile.new()
+		save = savefile.new()
 		save.data = {"visits": 0}
 	save.data.visits = int(save.data.get("visits", 0)) + 1
-	_save.write(save)
+	save.write(save)
 
 	print("shark visits = ", save.data.visits)
 
-	preview = _preview.instantiate()
 	add_child(preview)
-
-	control_panel = _control_panel.instantiate()
 	add_child(control_panel)
 
-	_server()
-
-func _server():
 	server.use(StaticFileMiddleware.new())
 	server.router.handle_get("/", func(_p, _q, _h, _b):
 		var s = "Hello world, the counter of shark visits is {0}".format([save.data.visits])

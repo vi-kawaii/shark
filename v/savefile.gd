@@ -1,5 +1,5 @@
 extends Resource
 
-class_name SaveFile
+class_name savefile
 
 @export var data: Dictionary
