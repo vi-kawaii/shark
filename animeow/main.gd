@@ -1,60 +1,37 @@
 extends Node3D
 
-const _player := preload("res://player.tscn")
-const _level := preload("res://level/1.tscn")
-const _environment := preload("res://environment.tscn")
-const _loading := preload("res://loading.tscn")
+@onready const player := preload("res://me/src/player.tscn").instantiate()
+@onready const level := preload("res://level/1.tscn").instantiate()
+@onready const environment := preload("res://environment.tscn").instantiate()
 
-const _save := preload("res://save.gd")
+@onready const loading := preload("res://loading.tscn").instantiate()
+@onready const save := preload("res://save.gd")
+@onready const multiplayer := preload("res://multiplayer.gd").new()
 
-const _multiplayer := preload("res://multiplayer.gd")
-
-const _watcher := preload("res://watcher.gd")
-
-var player
-var level
-var environment
-var loading
-
-var savefile
-
-var mp
-
-var _watcher_instance: Node
-
+@onready const watcher := preload("res://watcher.gd").attach(self)
 
 func _ready() -> void:
 	_build()
-	_watcher_instance = _watcher.attach(self)
 
-
-func _build() -> void:
-	loading = _loading.instantiate()
+func _build():
 	add_child(loading)
 
 	loading.start()
 
 	print("hi world, its shark 🦈")
 
-	savefile = _save.read()
+	savefile = save.read()
 	if savefile == null:
 		savefile = SaveFile.new()
 		savefile.data = {"visits": 0}
 	savefile.data.visits = int(savefile.data.get("visits", 0)) + 1
-	_save.write(savefile)
+	save.write(savefile)
 
 	print("shark visits = ", savefile.data.visits)
 
-	mp = _multiplayer.new()
-	add_child(mp)
-
-	environment = _environment.instantiate()
+	add_child(multiplayer)
 	add_child(environment)
-
-	level = _level.instantiate()
 	add_child(level)
-
-	player = _player.instantiate()
 	add_child(player)
 
 	player.camera_rig.camera.make_current()
@@ -80,7 +57,7 @@ func restart() -> void:
 
 	# сносим всех детей, кроме вотчера
 	for child in get_children():
-		if child == _watcher_instance:
+		if child == watcher:
 			continue
 		child.queue_free()
 
@@ -89,5 +66,5 @@ func restart() -> void:
 
 	_build()
 
-	if _watcher_instance:
-		_watcher_instance.reset()
+	if watcher:
+		watcher.reset()
