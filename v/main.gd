@@ -1,11 +1,11 @@
 extends Control
 
-@onready const control_panel = preload("res://control_panel.tscn").instantiate()
-@onready const preview = preload("res://preview.tscn").instantiate()
+@onready var control_panel = preload("res://control_panel.tscn").instantiate()
+@onready var preview = preload("res://preview.tscn").instantiate()
 
-@onready const save = preload("res://save.gd")
+@onready var save = preload("res://save.gd")
 
-@onready const server = $HTTPServer
+@onready var server = $HTTPServer
 
 func _ready():
 	print("hi world, its shark 🦈")

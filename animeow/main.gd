@@ -1,14 +1,14 @@
 extends Node3D
 
-@onready const player := preload("res://me/src/player.tscn").instantiate()
-@onready const level := preload("res://level/1.tscn").instantiate()
-@onready const environment := preload("res://environment.tscn").instantiate()
+@onready var player := preload("res://me/src/player.tscn").instantiate()
+@onready var level := preload("res://level/1.tscn").instantiate()
+@onready var environment := preload("res://environment.tscn").instantiate()
 
-@onready const loading := preload("res://loading.tscn").instantiate()
-@onready const save := preload("res://save.gd")
-@onready const multiplayer := preload("res://multiplayer.gd").new()
+@onready var loading := preload("res://loading.tscn").instantiate()
+@onready var save := preload("res://save.gd")
+@onready var multiplayer := preload("res://multiplayer.gd").new()
 
-@onready const watcher := preload("res://watcher.gd").attach(self)
+@onready var watcher := preload("res://watcher.gd").attach(self)
 
 func _ready() -> void:
 	_build()
@@ -22,7 +22,7 @@ func _build():
 
 	savefile = save.read()
 	if savefile == null:
-		savefile = SaveFile.new()
+		savefile = savefile.new()
 		savefile.data = {"visits": 0}
 	savefile.data.visits = int(savefile.data.get("visits", 0)) + 1
 	save.write(savefile)

@@ -20,7 +20,7 @@ static func get_save_path_for(project_name: String) -> String:
 	var hashed := _hash_name(project_name)
 	return SAVE_DIR.path_join("%s_%s.tres" % [safe, hashed])
 
-static func read(project_name: String = "") -> SaveFile:
+static func read(project_name: String = "") -> savefile:
 	if project_name.is_empty():
 		project_name = _default_project_name()
 
@@ -30,7 +30,7 @@ static func read(project_name: String = "") -> SaveFile:
 		return null
 
 	var res := ResourceLoader.load(save_path)
-	if res is SaveFile:
+	if res is savefile:
 		return res
 
 	return null
@@ -42,14 +42,14 @@ static func write(data: Variant, project_name: String = "") -> void:
 	var save_path := get_save_path_for(project_name)
 	DirAccess.make_dir_recursive_absolute(SAVE_DIR)
 
-	var save: SaveFile
-	if data is SaveFile:
+	var save: savefile
+	if data is savefile:
 		save = data
 	elif data is Dictionary:
-		save = SaveFile.new()
+		save = savefile.new()
 		save.data = data
 	else:
-		push_error("SaveManager.write: data must be Dictionary or SaveFile")
+		push_error("SaveManager.write: data must be Dictionary or savefile")
 		return
 
 	var err := ResourceSaver.save(save, save_path)
