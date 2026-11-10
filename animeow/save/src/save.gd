@@ -1,6 +1,6 @@
 extends Node
 
-const SAVE_PATH := "user://savefile.tres"
+const SAVE_PATH := "user://save_file.tres"
 
 func read() -> save_file:
 	if not FileAccess.file_exists(SAVE_PATH):

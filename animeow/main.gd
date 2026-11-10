@@ -5,14 +5,10 @@ extends Node3D
 @onready var environment := preload("res://environment.tscn").instantiate()
 
 @onready var loading := preload("res://loading.tscn").instantiate()
-@onready var save := preload("res://save.gd").new()
+@onready var save := preload("res://save/src/save.gd").new()
 @onready var mp := preload("res://multiplayer.gd").new()
 
 func _ready():
-	create_game()
-	create_ui()
-
-func create_game():
 	add_child(loading)
 
 	loading.start()
@@ -21,7 +17,7 @@ func create_game():
 
 	var s = save.read()
 	if s == null:
-		s = savefile.new()
+		s = save_file.new()
 		s.data = {"visits": 0}
 	s.data.visits = int(s.data.get("visits", 0)) + 1
 	save.write(s)
@@ -37,33 +33,64 @@ func create_game():
 
 	loading.finish()
 
-func create_ui():
+	var theme := Theme.new()
+
+	theme.set_color("font_outline_color", "Label", Color.BLACK)
+	theme.set_constant("outline_size", "Label", 4)
+
 	var control = Control.new()
+	control.theme = theme
+	control.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	control.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
-	var panel = Panel.new()
-	control.add_child(panel)
+	# ЛЕВЫЙ НИЖНИЙ УГОЛ - здоровье и броня
+	var stats_box = VBoxContainer.new()
+	stats_box.anchor_left = 0.0
+	stats_box.anchor_top = 1.0
+	stats_box.anchor_bottom = 1.0
+	stats_box.offset_left = 10
+	stats_box.offset_top = -60
 
-	var label = Label.new()
-	label.text = "Hello World"
-	panel.add_child(label)
+	var health_label = Label.new()
+	health_label.text = "Здоровье: 100%"
+	stats_box.add_child(health_label)
+
+	var armor_label = Label.new()
+	armor_label.text = "Броня: 100%"
+	stats_box.add_child(armor_label)
+
+	control.add_child(stats_box)
+
+	# ПРАВЫЙ ВЕРХНИЙ УГОЛ - карта
+	var map_label = Label.new()
+	map_label.text = "Карта"
+	map_label.anchor_left = 1.0
+	map_label.anchor_right = 1.0
+	map_label.anchor_top = 0.0
+	map_label.offset_left = -60
+	map_label.offset_top = 10
+	control.add_child(map_label)
+
+	# ПРАВЫЙ НИЖНИЙ УГОЛ - оружие и патроны
+	var weapon_box = VBoxContainer.new()
+	weapon_box.anchor_left = 1.0
+	weapon_box.anchor_right = 1.0
+	weapon_box.anchor_top = 1.0
+	weapon_box.anchor_bottom = 1.0
+	weapon_box.offset_left = -200
+	weapon_box.offset_right = -10
+	weapon_box.offset_top = -60
+
+	var weapon_label = Label.new()
+	weapon_label.text = "Оружие: АК-47"
+	weapon_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	weapon_box.add_child(weapon_label)
+
+	var ammo_label = Label.new()
+	ammo_label.text = "Патроны: 30 / 120"
+	ammo_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	weapon_box.add_child(ammo_label)
+
+	control.add_child(weapon_box)
 
 	add_child(control)
-
-func reload_game():
-	get_tree().reload_current_scene()
-
-func reload_ui():
-	for c in get_children():
-		if c is Control:
-			c.queue_free()
-
-	create_ui()
-
-func _input(event):
-	if event is InputEventKey and event.pressed and not event.echo:
-
-		if event.keycode == KEY_F5 and event.ctrl_pressed:
-			reload_game()
-
-		elif event.keycode == KEY_F5:
-			reload_ui()
