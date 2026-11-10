@@ -8,12 +8,11 @@ extends Node3D
 @onready var save := preload("res://save.gd").new()
 @onready var mp := preload("res://multiplayer.gd").new()
 
-@onready var watcher := preload("res://watcher.gd").attach(self)
+func _ready():
+	create_game()
+	create_ui()
 
-func _ready() -> void:
-	_build()
-
-func _build():
+func create_game():
 	add_child(loading)
 
 	loading.start()
@@ -38,33 +37,33 @@ func _build():
 
 	loading.finish()
 
-	# 1. Создаст HUD, добавит его на текущую ноду (self) и вернет объект в view
-	ui.get_view("hud").add(self)
+func create_ui():
+	var control = Control.new()
 
-	# 2. Передаст состояние (внутренний метод проверит наличие поля state в GmlView)
-	ui.get_view("hud").set_state({"hp": 100, "gun": 7})
+	var panel = Panel.new()
+	control.add_child(panel)
 
-	# 3. Полностью удалит HUD с экрана, сотрет его из кэша и очистит память
-	# ui.get("hud").clear()
+	var label = Label.new()
+	label.text = "Hello World"
+	panel.add_child(label)
 
-	# view.set_state({"hp": 100, "gun": 7})
+	add_child(control)
 
-	#add_child(ui.get("hud"))
+func reload_game():
+	get_tree().reload_current_scene()
 
+func reload_ui():
+	for c in get_children():
+		if c is Control:
+			c.queue_free()
 
-func restart() -> void:
-	print("[main] пересоздаю сцену")
+	create_ui()
 
-	# сносим всех детей, кроме вотчера
-	for child in get_children():
-		if child == watcher:
-			continue
-		child.queue_free()
+func _input(event):
+	if event is InputEventKey and event.pressed and not event.echo:
 
-	await get_tree().process_frame
-	await get_tree().process_frame
+		if event.keycode == KEY_F5 and event.ctrl_pressed:
+			reload_game()
 
-	_build()
-
-	if watcher:
-		watcher.reset()
+		elif event.keycode == KEY_F5:
+			reload_ui()

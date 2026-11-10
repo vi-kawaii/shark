@@ -1,1 +1,0 @@
-godot main.tscn -- --watch
