@@ -22,8 +22,9 @@ class UIViewWrapper extends Object:
 	func _init(name: String):
 		view_name = name
 		view = GmlView.new()
-		view.html_path = "res://ui/{0}.html".format([name])
-		view.css_path = "res://ui/{0}.css".format([name])
+		view.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		view.html_path = "res://ui/static/{0}.html".format([name])
+		view.css_path = "res://ui/static/{0}.css".format([name])
 
 		if view is Control:
 			view.set_anchors_preset(Control.PRESET_FULL_RECT)

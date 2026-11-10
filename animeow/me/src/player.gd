@@ -1,7 +1,5 @@
 extends CharacterBody3D
 
-const _camera_rig := preload("res://camera_rig.tscn")
-
 @export var walk_speed := 5.0
 @export var run_speed := 9.0
 @export var crouch_speed := 2.5
@@ -15,7 +13,7 @@ const _camera_rig := preload("res://camera_rig.tscn")
 @export var stand_camera_height := 1.6
 @export var crouch_camera_height := 1.0
 
-@onready var camera_rig
+@onready var camera_rig = preload("res://me/static/camera_rig.tscn").instantiate()
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -24,7 +22,6 @@ var _default_height: float
 var _capsule: CapsuleShape3D
 
 func _ready() -> void:
-	camera_rig = _camera_rig.instantiate()
 	add_child(camera_rig)
 
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

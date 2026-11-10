@@ -11,10 +11,8 @@
   height: 100vh;
   padding: 20px;
   box-sizing: border-box;
-  pointer-events: none;
 }
 
 .hud-item {
   padding: 15px;
-  pointer-events: auto;
 }
