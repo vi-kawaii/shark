@@ -5,10 +5,20 @@ extends Node3D
 @export var zoom := camera_zoom.new()
 @export var rot := camera_rotation.new()
 
-@onready var spring_arm: SpringArm3D = $SpringArm3D
-@onready var camera: Camera3D = $SpringArm3D/Camera3D
+var spring_arm: SpringArm3D
+var camera: Camera3D
 
 func _ready() -> void:
+	spring_arm = SpringArm3D.new()
+	var sphere := SphereShape3D.new()
+	sphere.radius = 0.2
+	spring_arm.shape = sphere
+	spring_arm.spring_length = 4.0
+	add_child(spring_arm)
+
+	camera = Camera3D.new()
+	spring_arm.add_child(camera)
+
 	rot.yaw.target = rotation.y
 	rot.yaw.current = rot.yaw.target
 	rot.pitch.target = spring_arm.rotation.x
@@ -24,7 +34,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		rot.yaw.target -= event.relative.x * mouse.sensitivity
 		rot.pitch.target -= event.relative.y * mouse.sensitivity
-		rot.pitch.target = clampf(rot.pitch.target, rot.pitch.min, rot.pitch.max)
+		rot.pitch.target = clampf(rot.pitch.target, rot.pitch.minimum, rot.pitch.maximum)
 		rot.yaw.velocity = -event.relative.x * mouse.sensitivity
 		rot.pitch.velocity = -event.relative.y * mouse.sensitivity
 
@@ -39,7 +49,7 @@ func _physics_process(delta: float) -> void:
 	rot.pitch.velocity = lerpf(rot.pitch.velocity, 0.0, delta * movement.smoothness)
 
 	rot.yaw.target += rot.yaw.velocity * delta
-	rot.pitch.target = clampf(rot.pitch.target + rot.pitch.velocity * delta, rot.pitch.min, rot.pitch.max)
+	rot.pitch.target = clampf(rot.pitch.target + rot.pitch.velocity * delta, rot.pitch.minimum, rot.pitch.maximum)
 
 	rot.yaw.current = lerp_angle(rot.yaw.current, rot.yaw.target, delta * 20.0)
 	rot.pitch.current = lerpf(rot.pitch.current, rot.pitch.target, delta * 20.0)

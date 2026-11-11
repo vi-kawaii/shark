@@ -1,37 +1,38 @@
 extends Node3D
 
-@onready var player := preload("res://me/static/player.tscn").instantiate()
-@onready var level := preload("res://level/1.tscn").instantiate()
-@onready var environment := preload("res://environment.tscn").instantiate()
+@onready var nodes := {
+	save = preload("res://save/local.gd").new(),
+	loading = preload("res://loading.tscn").instantiate(),
 
-@onready var loading := preload("res://loading.tscn").instantiate()
-@onready var save := preload("res://save/src/save.gd").new()
-@onready var mp := preload("res://multiplayer.gd").new()
+	mp = preload("res://multiplayer.gd").new(),
+	environment = preload("res://environment.tscn").instantiate(),
+	level = preload("res://level/1.tscn").instantiate(),
+
+	player = preload("res://me/player.gd").new(),
+}
 
 func _ready():
-	add_child(loading)
+	for n in nodes.values():
+		add_child(n)
 
-	loading.start()
+	get_tree().set_auto_accept_quit(false)
+
+	nodes.loading.start()
 
 	print("hi world, its shark 🦈")
 
-	var s = save.read()
+	var s = nodes.save.read()
 	if s == null:
 		s = save_file.new()
 		s.data = {"visits": 0}
 	s.data.visits = int(s.data.get("visits", 0)) + 1
-	save.write(s)
+	nodes.save.write(s)
 
 	print("shark visits = ", s.data.visits)
 
-	add_child(mp)
-	add_child(environment)
-	add_child(level)
-	add_child(player)
+	nodes.player.camera_rig.camera.make_current()
 
-	player.camera_rig.camera.make_current()
-
-	loading.finish()
+	nodes.loading.finish()
 
 	var theme := Theme.new()
 
@@ -94,3 +95,13 @@ func _ready():
 	control.add_child(weapon_box)
 
 	add_child(control)
+
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		print("bye bye")
+		nodes.mp.go_offline()
+
+		get_tree().quit()
+
+func close_game():
+	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)

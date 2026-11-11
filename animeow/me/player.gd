@@ -1,22 +1,32 @@
 extends CharacterBody3D
 
+@onready var state := player_state.new()
 @onready var speed := player_speed.new()
 @onready var physics := player_physics.new()
-
 @onready var crouch := player_crouch.new()
 
-@onready var camera_rig := preload("res://camera/static/third_person.tscn").instantiate()
-@onready var collision_shape := $CollisionShape3D
+@onready var camera_rig := preload("res://camera/third_person.gd").new()
 
-@onready var state := player_state.new()
 var _default_height: float
 var _capsule: CapsuleShape3D
 
 func _ready() -> void:
+	var collision := CollisionShape3D.new()
+	collision.shape = CapsuleShape3D.new()
+	add_child(collision)
+
+	var visual := Node3D.new()
+	visual.name = "Visual"
+	add_child(visual)
+
+	var mesh := MeshInstance3D.new()
+	mesh.mesh = CapsuleMesh.new()
+	visual.add_child(mesh)
+
 	add_child(camera_rig)
 
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	_capsule = collision_shape.shape as CapsuleShape3D
+	_capsule = collision.shape as CapsuleShape3D
 	_default_height = _capsule.height
 
 func _physics_process(delta: float) -> void:

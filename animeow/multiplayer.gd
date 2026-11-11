@@ -21,4 +21,5 @@ func create_client():
 	multiplayer.multiplayer_peer = peer
 
 func go_offline():
-	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
+	if multiplayer.multiplayer_peer:
+		multiplayer.multiplayer_peer.close()
