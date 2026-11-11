@@ -5,7 +5,7 @@ extends CharacterBody3D
 
 @onready var crouch := player_crouch.new()
 
-@onready var camera_rig := preload("res://me/static/camera_rig.tscn").instantiate()
+@onready var camera_rig := preload("res://camera/static/third_person.tscn").instantiate()
 @onready var collision_shape := $CollisionShape3D
 
 @onready var state := player_state.new()
