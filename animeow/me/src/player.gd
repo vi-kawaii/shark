@@ -3,10 +3,7 @@ extends CharacterBody3D
 @onready var speed := player_speed.new()
 @onready var physics := player_physics.new()
 
-@export_group("Crouch")
-@export var crouch_height_ratio := 0.5
-@export var stand_camera_height := 1.6
-@export var crouch_camera_height := 1.0
+@onready var crouch := player_crouch.new()
 
 @onready var camera_rig := preload("res://me/static/camera_rig.tscn").instantiate()
 @onready var collision_shape := $CollisionShape3D
@@ -34,36 +31,26 @@ func _handle_crouch() -> void:
 		return
 
 	state.crouch = want_crouch
-	_capsule.height = get_capsule_height(_default_height, state.crouch, crouch_height_ratio)
-	camera_rig.position.y = get_camera_height(stand_camera_height, crouch_camera_height, state.crouch)
-
-func get_speed(crouching: bool, sprinting: bool, walk: float, run: float, crouch: float) -> float:
-	if crouching:
-		return crouch
-	if sprinting:
-		return run
-	return walk
-
-func get_capsule_height(default_height: float, crouching: bool, ratio: float) -> float:
-	return default_height * (ratio if crouching else 1.0)
-
-func get_camera_height(stand: float, crouch: float, crouching: bool) -> float:
-	return crouch if crouching else stand
+	_capsule.height = crouch.get_capsule_height(_default_height, state.crouch)
+	camera_rig.position.y = crouch.get_camera_height(state.crouch)
 
 func _handle_horizontal(delta) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction: Vector3 = (camera_rig.get_yaw_basis() * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
 	if direction.length() > 0.1:
-		var s := get_speed(
-			state.crouch,
-			Input.is_action_pressed("sprint"),
-			speed.walk, speed.run, speed.crouch
-		)
+		var s := speed.get_value(_current_move_mode())
 		var accel: float = physics.acceleration if is_on_floor() else physics.air_acceleration
 		velocity = apply_horizontal(direction, s, accel, delta)
 	elif is_on_floor():
 		velocity = apply_friction(delta)
+
+func _current_move_mode() -> player_speed.MoveMode:
+	if state.crouch:
+		return player_speed.MoveMode.CROUCH
+	if Input.is_action_pressed("sprint"):
+		return player_speed.MoveMode.RUN
+	return player_speed.MoveMode.WALK
 
 func _handle_vertical(delta) -> void:
 	if not is_on_floor():
