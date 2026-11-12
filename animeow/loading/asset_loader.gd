@@ -2,21 +2,16 @@ extends RefCounted
 
 class_name loading_asset_loader
 
-class signals:
-	signal loading_started
-	signal progress_updated(progress: float)
-	signal loading_finished
+signal loading_started
+signal progress_updated(progress: float)
+signal loading_finished
 
-static var _instance := signals.new()
+static var instance: loading_asset_loader
 
-static var loading_started: Signal:
-	get: return _instance.loading_started
-
-static var progress_updated: Signal:
-	get: return _instance.progress_updated
-
-static var loading_finished: Signal:
-	get: return _instance.loading_finished
+static func get_instance() -> loading_asset_loader:
+	if instance == null:
+		instance = loading_asset_loader.new()
+	return instance
 
 ## Хранит активные загрузки: { "путь": [список_колбэков] }
 #var _pending: Dictionary = {}

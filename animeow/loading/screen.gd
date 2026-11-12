@@ -8,9 +8,9 @@ var percent_label: Label
 func _ready() -> void:
 	hide()
 
-	loading_asset_loader.loading_started.connect(_on_loading_started)
-	loading_asset_loader.progress_updated.connect(_on_progress_updated)
-	loading_asset_loader.loading_finished.connect(_on_loading_finished)
+	loading_asset_loader.get_instance().loading_started.connect(_on_loading_started)
+	loading_asset_loader.get_instance().progress_updated.connect(_on_progress_updated)
+	loading_asset_loader.get_instance().loading_finished.connect(_on_loading_finished)
 
 	var control = Control.new()
 	control.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
