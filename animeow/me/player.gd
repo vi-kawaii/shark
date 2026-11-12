@@ -1,11 +1,13 @@
 extends CharacterBody3D
 
+class_name player
+
 @onready var state := player_state.new()
 @onready var speed := player_speed.new()
 @onready var physics := player_physics.new()
 @onready var crouch := player_crouch.new()
 
-@onready var camera_rig := preload("res://camera/third_person.gd").new()
+@onready var camera_rig := camera_third_person.new()
 
 var _default_height: float
 var _capsule: CapsuleShape3D

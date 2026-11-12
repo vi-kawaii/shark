@@ -1,5 +1,7 @@
 extends Node3D
 
+class_name camera_third_person
+
 @export var mouse := camera_mouse.new()
 @export var movement := camera_movement.new()
 @export var zoom := camera_zoom.new()
@@ -35,8 +37,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		rot.yaw.target -= event.relative.x * mouse.sensitivity
 		rot.pitch.target -= event.relative.y * mouse.sensitivity
 		rot.pitch.target = clampf(rot.pitch.target, rot.pitch.minimum, rot.pitch.maximum)
-		rot.yaw.velocity = -event.relative.x * mouse.sensitivity
-		rot.pitch.velocity = -event.relative.y * mouse.sensitivity
+		rot.yaw.velocity = - event.relative.x * mouse.sensitivity
+		rot.pitch.velocity = - event.relative.y * mouse.sensitivity
 
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:

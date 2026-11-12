@@ -7,13 +7,14 @@ extends Node3D
 	mp = preload("res://multiplayer.gd").new(),
 	environment = preload("res://environment.tscn").instantiate(),
 	level = preload("res://level/1.tscn").instantiate(),
-
-	player = preload("res://me/player.gd").new(),
 }
 
 func _ready():
 	for n in nodes.values():
 		add_child(n)
+
+	var p := player.new()
+	add_child(p)
 
 	get_tree().set_auto_accept_quit(false)
 
@@ -30,7 +31,7 @@ func _ready():
 
 	print("shark visits = ", s.data.visits)
 
-	nodes.player.camera_rig.camera.make_current()
+	p.camera_rig.camera.make_current()
 
 	nodes.loading.finish()
 
