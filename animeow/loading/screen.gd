@@ -1,5 +1,6 @@
-## loading_screen.gd
-#extends CanvasLayer
+extends Node
+
+class_name loading_screen
 
 #@onready var progress_bar: ProgressBar = $Control/ProgressBar
 #@onready var percent_label: Label = $Control/Label

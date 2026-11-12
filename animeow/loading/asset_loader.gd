@@ -1,5 +1,6 @@
-## asset_loader.gd
-#extends Node
+extends Node
+
+class_name loading_asset_loader
 
 #signal loading_started
 #signal progress_updated(progress: float) # Отдает от 0.0 до 1.0
