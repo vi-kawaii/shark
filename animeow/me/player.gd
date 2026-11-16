@@ -13,6 +13,16 @@ var _default_height: float
 var _capsule: CapsuleShape3D
 
 func _ready() -> void:
+	loading_manager.get_instance().add_to_queue("res://assets/test_huge.png", func(_res):
+		print("test_huge.png loaded!")
+	)
+	loading_manager.get_instance().add_to_queue("res://assets/test_huge2.png", func(_res):
+		print("test_huge2.png loaded!")
+	)
+	loading_manager.get_instance().add_to_queue("res://assets/test_huge3.png", func(_res):
+		print("test_huge3.png loaded!")
+	)
+
 	var collision := CollisionShape3D.new()
 	collision.shape = CapsuleShape3D.new()
 	add_child(collision)

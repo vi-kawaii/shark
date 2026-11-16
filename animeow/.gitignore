@@ -1,3 +1,8 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# тяжёлые тестовые ассеты
+/assets/test_huge.png
+/assets/test_huge2.png
+/assets/test_huge3.png

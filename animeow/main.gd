@@ -2,24 +2,30 @@ extends Node3D
 
 @onready var nodes := {
 	save = preload("res://save/local.gd").new(),
-	loading = preload("res://loading.tscn").instantiate(),
 
 	mp = preload("res://multiplayer.gd").new(),
 	environment = preload("res://environment.tscn").instantiate(),
 	level = preload("res://level/1.tscn").instantiate(),
 }
 
+var p: player
+
 func _ready():
+	get_tree().set_auto_accept_quit(false)
+
 	for n in nodes.values():
 		add_child(n)
 
-	var p := player.new()
+	p = player.new()
 	add_child(p)
 
-	get_tree().set_auto_accept_quit(false)
+	var l = loading_screen.new()
+	l.after_load_code = game
+	add_child(l)
 
-	nodes.loading.start()
+	loading_manager.get_instance().start_loading()
 
+func game():
 	print("hi world, its shark 🦈")
 
 	var s = nodes.save.read()
@@ -32,8 +38,6 @@ func _ready():
 	print("shark visits = ", s.data.visits)
 
 	p.camera_rig.camera.make_current()
-
-	nodes.loading.finish()
 
 	var theme := Theme.new()
 
