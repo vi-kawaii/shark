@@ -2,6 +2,21 @@ extends CharacterBody3D
 
 class_name player
 
+var loads = [
+	[
+		"test_huge.png",
+		func(_res): print("test_huge.png loaded!")
+	],
+	[
+		"test_huge2.png",
+		func(_res): print("test_huge2.png loaded!")
+	],
+	[
+		"test_huge3.png",
+		func(_res): print("test_huge3.png loaded!")
+	]
+]
+
 @onready var state := player_state.new()
 @onready var speed := player_speed.new()
 @onready var physics := player_physics.new()
@@ -13,15 +28,8 @@ var _default_height: float
 var _capsule: CapsuleShape3D
 
 func _ready() -> void:
-	loading_manager.get_instance().add_to_queue("res://assets/test_huge.png", func(_res):
-		print("test_huge.png loaded!")
-	)
-	loading_manager.get_instance().add_to_queue("res://assets/test_huge2.png", func(_res):
-		print("test_huge2.png loaded!")
-	)
-	loading_manager.get_instance().add_to_queue("res://assets/test_huge3.png", func(_res):
-		print("test_huge3.png loaded!")
-	)
+	for i in loads:
+		loading_manager.get_instance().loads.append(i)
 
 	var collision := CollisionShape3D.new()
 	collision.shape = CapsuleShape3D.new()

@@ -23,6 +23,7 @@ func _ready():
 	l.after_load_code = game
 	add_child(l)
 
+	add_child(loading_manager.get_instance())
 	loading_manager.get_instance().start_loading()
 
 func game():
