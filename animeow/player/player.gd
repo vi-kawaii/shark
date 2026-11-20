@@ -3,18 +3,18 @@ extends CharacterBody3D
 class_name player_default
 
 var loads = [
-	[
-		"test_huge.png",
-		func(_res): print("test_huge.png loaded!")
-	],
-	[
-		"test_huge2.png",
-		func(_res): print("test_huge2.png loaded!")
-	],
-	[
-		"test_huge3.png",
-		func(_res): print("test_huge3.png loaded!")
-	]
+	#[
+	#	"test_huge.png",
+	#	func(_res): print("test_huge.png loaded!")
+	#],
+	#[
+	#	"test_huge2.png",
+	#	func(_res): print("test_huge2.png loaded!")
+	#],
+	#[
+	#	"test_huge3.png",
+	#	func(_res): print("test_huge3.png loaded!")
+	#]
 ]
 
 @onready var state := player_state.new()

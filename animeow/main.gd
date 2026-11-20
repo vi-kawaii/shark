@@ -36,10 +36,10 @@ func _ready():
 	loading_manager_.start_loading(game)
 
 func game():
-	save.data.visits += 1
-
 	print("hi world, its shark 🦈")
 	print("shark visits = ", save.data.visits)
+
+	save.data.visits += 1
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
