@@ -1,14 +1,14 @@
 extends Node3D
 
 @onready var nodes := {
-	save = preload("res://save/local.gd").new(),
-
-	mp = preload("res://multiplayer.gd").new(),
-	environment = preload("res://environment.tscn").instantiate(),
 	level = preload("res://level/1.tscn").instantiate(),
 }
 
-var p: player
+@onready var p := player.new()
+@onready var mp := multiplayer_default.new()
+@onready var ls := loading_screen.new()
+@onready var lm := loading_manager.get_instance()
+@onready var env := environment_default.new()
 
 func _ready():
 	get_tree().set_auto_accept_quit(false)
@@ -16,27 +16,21 @@ func _ready():
 	for n in nodes.values():
 		add_child(n)
 
-	p = player.new()
+	add_child(env)
 	add_child(p)
+	add_child(ls)
+	add_child(lm)
+	add_child(mp)
 
-	var l = loading_screen.new()
-	l.after_load_code = game
-	add_child(l)
-
-	add_child(loading_manager.get_instance())
-	loading_manager.get_instance().start_loading()
+	lm.start_loading(game)
 
 func game():
+	save.load()
+	save.data.visits += 1
+	save.write()
+
 	print("hi world, its shark 🦈")
-
-	var s = nodes.save.read()
-	if s == null:
-		s = save_file.new()
-		s.data = {"visits": 0}
-	s.data.visits = int(s.data.get("visits", 0)) + 1
-	nodes.save.write(s)
-
-	print("shark visits = ", s.data.visits)
+	print("shark visits = ", save.data.visits)
 
 	p.camera_rig.camera.make_current()
 
@@ -105,7 +99,7 @@ func game():
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		print("bye bye")
-		nodes.mp.go_offline()
+		mp.go_offline()
 
 		get_tree().quit()
 

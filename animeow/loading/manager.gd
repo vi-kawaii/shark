@@ -13,6 +13,8 @@ var is_loading: bool
 
 static var instance: loading_manager
 
+var after_load_code: Callable
+
 static func get_instance() -> loading_manager:
 	if instance:
 		return instance
@@ -24,7 +26,8 @@ static func get_instance() -> loading_manager:
 func get_asset_path(filename: String):
 	return "res://assets/{0}".format([filename])
 
-func start_loading() -> void:
+func start_loading(callback: Callable) -> void:
+	after_load_code = callback
 	is_loading = true
 
 	for l in loads:
@@ -62,3 +65,4 @@ func _process(_delta: float) -> void:
 func end_loading():
 	loaded = 0
 	loads.clear()
+	after_load_code.call()

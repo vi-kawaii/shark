@@ -1,5 +1,7 @@
 extends Node
 
+class_name multiplayer_default
+
 const IP_ADDRESS := "127.0.0.1"
 const PORT := 7777
 const MAX_CLIENTS := 8

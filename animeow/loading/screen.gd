@@ -8,8 +8,6 @@ var is_transitioning := false
 var target_progress := 0.0
 var current_progress := 0.0
 
-var after_load_code: Callable
-
 var background: ColorRect
 var container: Control
 var progress_bg: ColorRect
@@ -95,14 +93,9 @@ func on_loading_finished() -> void:
 
 	finish_loading()
 
-
 func finish_loading() -> void:
 	await create_tween().tween_property(progress_fill, "size:x", 360.0, 0.5).finished
-
 	await create_tween().tween_property(container, "modulate:a", 0.0, 0.5).finished
-
-	after_load_code.call()
-
 	await create_tween().tween_property(background, "modulate:a", 0.0, 1.0).finished
 
 	is_loading = false
