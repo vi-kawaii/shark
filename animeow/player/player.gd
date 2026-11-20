@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-class_name player
+class_name player_default
 
 var loads = [
 	[
@@ -22,12 +22,22 @@ var loads = [
 @onready var physics := player_physics.new()
 @onready var crouch := player_crouch.new()
 
-@onready var camera_rig := camera_third_person.new()
+@onready var event_global_ := event_global.get_instance()
 
 var _default_height: float
 var _capsule: CapsuleShape3D
 
+var camera_rig: Node3D
+
+func on_camera_rig_changed():
+	camera_rig = event_global_.camera_rig
+
+	add_child(camera_rig)
+	camera_rig.camera.make_current()
+
 func _ready() -> void:
+	event_global_.camera_rig_changed.connect(on_camera_rig_changed)
+
 	for i in loads:
 		loading_manager.get_instance().loads.append(i)
 
@@ -43,13 +53,14 @@ func _ready() -> void:
 	mesh.mesh = CapsuleMesh.new()
 	visual.add_child(mesh)
 
-	add_child(camera_rig)
-
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	_capsule = collision.shape as CapsuleShape3D
 	_default_height = _capsule.height
 
 func _physics_process(delta: float) -> void:
+	if not camera_rig:
+		return
+
 	_handle_crouch()
 	_handle_horizontal(delta)
 	_handle_vertical(delta)

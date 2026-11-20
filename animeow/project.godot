@@ -24,11 +24,12 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gtml/plugin.cfg")
+enabled=PackedStringArray()
 
 [gui]
 
 common/auto_focus_strategy=1
+theme/custom="res://ui/default.tres"
 
 [input]
 

@@ -2,18 +2,16 @@ extends Node
 
 class_name loading_manager
 
-signal loading_started
-signal progress_updated(percent: float)
-signal loading_finished
-
 var loads: Array[Array]
 
 var loaded: int
 var is_loading: bool
 
-static var instance: loading_manager
-
 var after_load_code: Callable
+
+@onready var event_global_ := event_global.get_instance()
+
+static var instance: loading_manager
 
 static func get_instance() -> loading_manager:
 	if instance:
@@ -35,7 +33,7 @@ func start_loading(callback: Callable) -> void:
 
 		ResourceLoader.load_threaded_request(get_asset_path(path))
 
-	loading_started.emit()
+	event_global_.loading_started.emit()
 
 func _process(_delta: float) -> void:
 	if not is_loading:
@@ -55,12 +53,12 @@ func _process(_delta: float) -> void:
 
 	if loaded == loads.size():
 		is_loading = false
-		loading_finished.emit()
+		event_global_.loading_finished.emit()
 		end_loading()
 
 		return
 
-	progress_updated.emit(float(loaded) / loads.size())
+	event_global_.progress = float(loaded) / loads.size()
 
 func end_loading():
 	loaded = 0
