@@ -2,7 +2,13 @@ extends Control
 
 class_name hud_default
 
+@onready var event_global_ := event_global.get_instance()
+
+var weapon_label: Label
+
 func _ready():
+	event_global_.weapon_changed.connect(update_weapon)
+
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
@@ -44,7 +50,7 @@ func _ready():
 	weapon_box.offset_right = -10
 	weapon_box.offset_top = -60
 
-	var weapon_label = Label.new()
+	weapon_label = Label.new()
 	weapon_label.text = "Оружие: АК-47"
 	weapon_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	weapon_box.add_child(weapon_label)
@@ -55,3 +61,6 @@ func _ready():
 	weapon_box.add_child(ammo_label)
 
 	add_child(weapon_box)
+
+func update_weapon():
+	weapon_label.text = "Оружие: " + event_global_.weapon
