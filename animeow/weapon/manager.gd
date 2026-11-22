@@ -24,3 +24,34 @@ func switch(weapon: String):
 func emit_event(weapon: String):
 	event_global_.weapon = weapon
 	event_global_.weapon_changed.emit()
+
+func _input(event: InputEvent) -> void:
+	if not event is InputEventMouseButton:
+		return
+
+	if not event.pressed:
+		return
+
+	match event.button_index:
+		MOUSE_BUTTON_LEFT:
+			print("Нажата левая кнопка")
+
+		MOUSE_BUTTON_RIGHT:
+			print("Нажата правая кнопка")
+
+	input_change_weapon(event)
+
+func input_change_weapon(event: InputEvent):
+	var weapon: String
+	match event.button_index:
+		MOUSE_BUTTON_WHEEL_UP:
+			weapon = inventory.next()
+
+		MOUSE_BUTTON_WHEEL_DOWN:
+			weapon = inventory.prev()
+
+	if not weapon:
+		return
+
+	hand = weapon
+	emit_event(weapon)

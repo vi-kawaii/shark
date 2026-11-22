@@ -45,7 +45,11 @@ func game():
 
 	save.data.visits += 1
 
+	weapon_manager_.equip("Бита")
 	weapon_manager_.equip("Пистолет")
+	weapon_manager_.equip("Автомат")
+	weapon_manager_.equip("Винтовка")
+	weapon_manager_.equip("Граната")
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:

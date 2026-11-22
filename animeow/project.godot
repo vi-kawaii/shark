@@ -22,6 +22,10 @@ window/size/mode=4
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[editor]
+
+run/main_run_args="--max-fps 30 --rendering-driver opengl3"
+
 [editor_plugins]
 
 enabled=PackedStringArray()
