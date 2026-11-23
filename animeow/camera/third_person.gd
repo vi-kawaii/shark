@@ -9,7 +9,9 @@ class_name camera_third_person
 
 var spring_arm: SpringArm3D
 
-var cam: camera_file
+signal created
+
+var cam: Camera3D
 
 func _ready() -> void:
 	spring_arm = SpringArm3D.new()
@@ -19,17 +21,17 @@ func _ready() -> void:
 	spring_arm.spring_length = 4.0
 	add_child(spring_arm)
 
-	cam = camera_file.new()
-	camera.file = cam
-	spring_arm.add_child(camera)
+	cam = Camera3D.new()
+	created.emit()
+	spring_arm.add_child(cam)
 
 	rot.yaw.target = rotation.y
 	rot.yaw.current = rot.yaw.target
 	rot.pitch.target = spring_arm.rotation.x
 	rot.pitch.current = rot.pitch.target
 
-	cam.camera.rotation = Vector3.ZERO
-	cam.camera.position = Vector3.ZERO
+	cam.rotation = Vector3.ZERO
+	cam.position = Vector3.ZERO
 
 	zoom.target = clampf(spring_arm.spring_length, zoom.minimum, zoom.maximum)
 	zoom.current = zoom.target

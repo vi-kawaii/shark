@@ -10,7 +10,7 @@ var _capsule: CapsuleShape3D
 
 var idxs: Array[int]
 
-var cam: Camera3D
+@onready var cam: Camera3D
 
 func _ready() -> void:
 	#idxs = loading.append_array([
@@ -18,7 +18,7 @@ func _ready() -> void:
 	#	"res://player/test_huge2.png",
 	#	"res://player/test_huge3.png"
 	#])
-	camera.file.changed.connect(update_camera)
+	camera.third_person.created.connect(use_camera)
 
 	var collision := CollisionShape3D.new()
 	collision.shape = CapsuleShape3D.new()
@@ -36,8 +36,9 @@ func _ready() -> void:
 	_capsule = collision.shape as CapsuleShape3D
 	_default_height = _capsule.height
 
-func update_camera():
-	cam = camera.file.camera
+func use_camera():
+	cam = camera.third_person.cam
+	cam.make_current()
 
 func _physics_process(delta: float) -> void:
 	if not cam:
