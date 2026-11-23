@@ -1,57 +1,67 @@
 extends Node
 
-var files: Array[Array]
+signal started
+signal finished
+signal updated
 
-var loaded: int
+var progress: float:
+	set(x):
+		progress = x
+		updated.emit()
+
+var pathes: Array[String]
+var files: Array[Resource]
+
 var is_loading: bool
 
 var after_load_code: Callable
+
+var i: int
 
 @onready var screen := loading_screen.new()
 
 func _ready() -> void:
 	add_child(screen)
 
-func get_asset_path(filename: String):
-	return "res://assets/{0}".format([filename])
+func append_array(path: Array[String]) -> Array[int]:
+	pathes.append_array(path)
+
+	var idxs: Array[int]
+	for x in path.size():
+		i += 1
+		idxs.append(i)
+
+	return idxs
 
 func start(callback: Callable) -> void:
 	after_load_code = callback
 	is_loading = true
 
-	for f in files:
-		var path: String = f[0]
+	for p in pathes:
+		ResourceLoader.load_threaded_request(p)
 
-		ResourceLoader.load_threaded_request(get_asset_path(path))
-
-	event.loading_started.emit()
+	started.emit()
 
 func _process(_delta: float) -> void:
 	if not is_loading:
 		return
 
-	for f in files:
-		var path: String = f[0]
-		var callback: Callable = f[1]
-
-		var status := ResourceLoader.load_threaded_get_status(get_asset_path(path))
+	for p in pathes:
+		var status := ResourceLoader.load_threaded_get_status(p)
 
 		match status:
 			ResourceLoader.THREAD_LOAD_LOADED:
-				var res = ResourceLoader.load_threaded_get(get_asset_path(path))
-				callback.call(res)
-				loaded += 1
+				files.append(ResourceLoader.load_threaded_get(p))
 
-	if loaded == files.size():
+	if files.size() == pathes.size():
 		is_loading = false
-		event.loading_finished.emit()
+		finished.emit()
 		end()
 
 		return
 
-	event.progress = float(loaded) / files.size()
+	progress = float(files.size()) / pathes.size()
 
 func end():
-	loaded = 0
-	files.clear()
+	pathes.clear()
 	after_load_code.call()

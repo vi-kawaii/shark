@@ -17,9 +17,9 @@ func _ready() -> void:
 	layer = 100
 	hide()
 
-	event.loading_started.connect(on_loading_started)
-	event.progress_updated.connect(on_progress_updated)
-	event.loading_finished.connect(on_loading_finished)
+	loading.started.connect(started)
+	loading.updated.connect(updated)
+	loading.finished.connect(finished)
 
 	create_ui()
 
@@ -51,7 +51,7 @@ func create_ui() -> void:
 	progress_fill.position = Vector2.ZERO
 	container.add_child(progress_fill)
 
-func on_loading_started() -> void:
+func started() -> void:
 	is_loading = true
 	is_transitioning = false
 
@@ -80,10 +80,10 @@ func _process(delta: float) -> void:
 func update_ui() -> void:
 	progress_fill.size.x = 360.0 * current_progress
 
-func on_progress_updated() -> void:
-	target_progress = clampf(event.progress, 0.0, 1.0)
+func updated() -> void:
+	target_progress = clampf(loading.progress, 0.0, 1.0)
 
-func on_loading_finished() -> void:
+func finished() -> void:
 	if is_transitioning:
 		return
 

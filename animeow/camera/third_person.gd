@@ -8,7 +8,8 @@ class_name camera_third_person
 @export var rot := camera_rotation.new()
 
 var spring_arm: SpringArm3D
-var camera: Camera3D
+
+var cam: camera_file
 
 func _ready() -> void:
 	spring_arm = SpringArm3D.new()
@@ -18,7 +19,8 @@ func _ready() -> void:
 	spring_arm.spring_length = 4.0
 	add_child(spring_arm)
 
-	camera = Camera3D.new()
+	cam = camera_file.new()
+	camera.file = cam
 	spring_arm.add_child(camera)
 
 	rot.yaw.target = rotation.y
@@ -26,24 +28,24 @@ func _ready() -> void:
 	rot.pitch.target = spring_arm.rotation.x
 	rot.pitch.current = rot.pitch.target
 
-	camera.rotation = Vector3.ZERO
-	camera.position = Vector3.ZERO
+	cam.camera.rotation = Vector3.ZERO
+	cam.camera.position = Vector3.ZERO
 
 	zoom.target = clampf(spring_arm.spring_length, zoom.minimum, zoom.maximum)
 	zoom.current = zoom.target
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		rot.yaw.target -= event.relative.x * mouse.sensitivity
-		rot.pitch.target -= event.relative.y * mouse.sensitivity
+func _unhandled_input(e: InputEvent) -> void:
+	if e is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		rot.yaw.target -= e.relative.x * mouse.sensitivity
+		rot.pitch.target -= e.relative.y * mouse.sensitivity
 		rot.pitch.target = clampf(rot.pitch.target, rot.pitch.minimum, rot.pitch.maximum)
-		rot.yaw.velocity = - event.relative.x * mouse.sensitivity
-		rot.pitch.velocity = - event.relative.y * mouse.sensitivity
+		rot.yaw.velocity = -e.relative.x * mouse.sensitivity
+		rot.pitch.velocity = -e.relative.y * mouse.sensitivity
 
-	if event is InputEventMouseButton and event.pressed:
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+	if e is InputEventMouseButton and e.pressed:
+		if e.button_index == MOUSE_BUTTON_WHEEL_UP:
 			zoom.target = maxf(zoom.target - zoom.step, zoom.minimum)
-		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+		elif e.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			zoom.target = minf(zoom.target + zoom.step, zoom.maximum)
 
 func _physics_process(delta: float) -> void:

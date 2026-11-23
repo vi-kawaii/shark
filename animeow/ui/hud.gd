@@ -5,7 +5,7 @@ class_name ui_hud
 var weapon_label: Label
 
 func _ready():
-	event.weapon_changed.connect(update_weapon)
+	weapon.hand.changed.connect(update_weapon)
 
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -61,4 +61,4 @@ func _ready():
 	add_child(weapon_box)
 
 func update_weapon():
-	weapon_label.text = "Оружие: " + event.weapon
+	weapon_label.text = "Оружие: " + weapon.hand.name

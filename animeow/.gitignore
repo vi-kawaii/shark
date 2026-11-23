@@ -3,6 +3,6 @@
 /android/
 
 # тяжёлые тестовые ассеты
-/assets/test_huge.png
-/assets/test_huge2.png
-/assets/test_huge3.png
+*test_huge.png
+*test_huge2.png
+*test_huge3.png

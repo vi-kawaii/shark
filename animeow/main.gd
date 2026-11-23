@@ -2,7 +2,6 @@ extends Node3D
 
 func _ready():
 	get_tree().set_auto_accept_quit(false)
-	event.camera = camera.third_person
 	loading.start(game)
 
 func game():
