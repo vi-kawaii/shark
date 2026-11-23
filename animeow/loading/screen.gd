@@ -13,15 +13,13 @@ var container: Control
 var progress_bg: ColorRect
 var progress_fill: ColorRect
 
-@onready var event_global_ := event_global.get_instance()
-
 func _ready() -> void:
 	layer = 100
 	hide()
 
-	event_global_.loading_started.connect(on_loading_started)
-	event_global_.progress_updated.connect(on_progress_updated)
-	event_global_.loading_finished.connect(on_loading_finished)
+	event.loading_started.connect(on_loading_started)
+	event.progress_updated.connect(on_progress_updated)
+	event.loading_finished.connect(on_loading_finished)
 
 	create_ui()
 
@@ -83,7 +81,7 @@ func update_ui() -> void:
 	progress_fill.size.x = 360.0 * current_progress
 
 func on_progress_updated() -> void:
-	target_progress = clampf(event_global_.progress, 0.0, 1.0)
+	target_progress = clampf(event.progress, 0.0, 1.0)
 
 func on_loading_finished() -> void:
 	if is_transitioning:

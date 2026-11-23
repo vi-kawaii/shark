@@ -9,8 +9,6 @@ var is_loading: bool
 
 var after_load_code: Callable
 
-@onready var event_global_ := event_global.get_instance()
-
 static var instance: loading_manager
 
 static func get_instance() -> loading_manager:
@@ -33,7 +31,7 @@ func start_loading(callback: Callable) -> void:
 
 		ResourceLoader.load_threaded_request(get_asset_path(path))
 
-	event_global_.loading_started.emit()
+	event.loading_started.emit()
 
 func _process(_delta: float) -> void:
 	if not is_loading:
@@ -53,12 +51,12 @@ func _process(_delta: float) -> void:
 
 	if loaded == loads.size():
 		is_loading = false
-		event_global_.loading_finished.emit()
+		event.loading_finished.emit()
 		end_loading()
 
 		return
 
-	event_global_.progress = float(loaded) / loads.size()
+	event.progress = float(loaded) / loads.size()
 
 func end_loading():
 	loaded = 0

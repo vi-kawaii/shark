@@ -9,14 +9,10 @@ extends Node3D
 @onready var player := player_default.new()
 @onready var camera_rig := camera_third_person.new()
 
-@onready var weapon_manager_ := weapon_manager.new()
-
 @onready var loading_screen := loading_screen_default.new()
 @onready var loading_manager_ := loading_manager.get_instance()
 
 @onready var hud := hud_default.new()
-
-@onready var event_global_ := event_global.get_instance()
 
 func _ready():
 	get_tree().set_auto_accept_quit(false)
@@ -25,9 +21,7 @@ func _ready():
 	add_child(save)
 
 	add_child(player)
-	event_global_.camera_rig = camera_rig
-
-	add_child(weapon_manager_)
+	event.camera_rig = camera_rig
 
 	add_child(loading_screen)
 	add_child(loading_manager_)
@@ -45,11 +39,11 @@ func game():
 
 	save.data.visits += 1
 
-	weapon_manager_.equip("Бита")
-	weapon_manager_.equip("Пистолет")
-	weapon_manager_.equip("Автомат")
-	weapon_manager_.equip("Винтовка")
-	weapon_manager_.equip("Граната")
+	weapon.equip("Бита")
+	weapon.equip("Пистолет")
+	weapon.equip("Автомат")
+	weapon.equip("Винтовка")
+	weapon.equip("Граната")
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:

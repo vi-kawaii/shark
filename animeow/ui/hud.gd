@@ -2,12 +2,10 @@ extends Control
 
 class_name hud_default
 
-@onready var event_global_ := event_global.get_instance()
-
 var weapon_label: Label
 
 func _ready():
-	event_global_.weapon_changed.connect(update_weapon)
+	event.weapon_changed.connect(update_weapon)
 
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -63,4 +61,4 @@ func _ready():
 	add_child(weapon_box)
 
 func update_weapon():
-	weapon_label.text = "Оружие: " + event_global_.weapon
+	weapon_label.text = "Оружие: " + event.weapon
