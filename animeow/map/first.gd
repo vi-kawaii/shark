@@ -1,5 +1,7 @@
 extends Node3D
 
+class_name map_first
+
 func _ready():
 	var plane = PlaneMesh.new()
 	plane.size = Vector2(20, 20)

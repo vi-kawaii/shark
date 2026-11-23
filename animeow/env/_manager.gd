@@ -1,7 +1,5 @@
 extends Node3D
 
-class_name environment_default
-
 func _ready():
 	var world_environment = WorldEnvironment.new()
 	world_environment.name = "WorldEnvironment"

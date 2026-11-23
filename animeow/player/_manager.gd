@@ -1,7 +1,5 @@
 extends CharacterBody3D
 
-class_name player_default
-
 var loads = [
 	#[
 	#	"test_huge.png",
@@ -25,19 +23,19 @@ var loads = [
 var _default_height: float
 var _capsule: CapsuleShape3D
 
-var camera_rig: Node3D
+var camera: Node3D
 
-func on_camera_rig_changed():
-	camera_rig = event.camera_rig
+func on_camera_changed():
+	camera = event.camera
 
-	add_child(camera_rig)
-	camera_rig.camera.make_current()
+	add_child(camera)
+	camera.camera.make_current()
 
 func _ready() -> void:
-	event.camera_rig_changed.connect(on_camera_rig_changed)
+	event.camera_changed.connect(on_camera_changed)
 
 	for i in loads:
-		loading_manager.get_instance().loads.append(i)
+		loading.files.append(i)
 
 	var collision := CollisionShape3D.new()
 	collision.shape = CapsuleShape3D.new()
@@ -56,7 +54,7 @@ func _ready() -> void:
 	_default_height = _capsule.height
 
 func _physics_process(delta: float) -> void:
-	if not camera_rig:
+	if not camera:
 		return
 
 	_handle_crouch()
@@ -71,11 +69,11 @@ func _handle_crouch() -> void:
 
 	state.crouch = want_crouch
 	_capsule.height = crouch.get_capsule_height(_default_height, state.crouch)
-	camera_rig.position.y = crouch.get_camera_height(state.crouch)
+	camera.position.y = crouch.get_camera_height(state.crouch)
 
 func _handle_horizontal(delta) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	var direction: Vector3 = (camera_rig.get_yaw_basis() * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction: Vector3 = (camera.get_yaw_basis() * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
 	if direction.length() > 0.1:
 		var s := speed.get_value(_current_move_mode())

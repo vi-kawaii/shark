@@ -1,12 +1,12 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
 config_version=5
-
-[autoload]
-
-event="*res://event/manager.gd"
-
-weapon="*res://weapon/manager.gd"
-
-inventory="*res://inventory/manager.gd"
 
 [application]
 
@@ -16,15 +16,25 @@ config/features=PackedStringArray("4.8", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 
+[autoload]
+
+event="*res://event/_manager.gd"
+weapon="*res://weapon/_manager.gd"
+inventory="*res://inventory/_manager.gd"
+ui="*res://ui/_manager.gd"
+save="*res://save/_manager.gd"
+player="*res://player/_manager.gd"
+environment="*res://env/_manager.gd"
+map="*res://map/_manager.gd"
+net="*res://net/_manager.gd"
+camera="*res://camera/_manager.gd"
+loading="*res://loading/_manager.gd"
+
 [display]
 
 window/size/mode=4
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
-
-[editor]
-
-run/main_run_args="--max-fps 30 --rendering-driver opengl3"
 
 [editor_plugins]
 
@@ -33,7 +43,7 @@ enabled=PackedStringArray()
 [gui]
 
 common/auto_focus_strategy=1
-theme/custom="res://ui/default.tres"
+theme/custom="res://default.tres"
 
 [input]
 

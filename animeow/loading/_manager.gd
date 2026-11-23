@@ -1,33 +1,26 @@
 extends Node
 
-class_name loading_manager
-
-var loads: Array[Array]
+var files: Array[Array]
 
 var loaded: int
 var is_loading: bool
 
 var after_load_code: Callable
 
-static var instance: loading_manager
+@onready var screen := loading_screen.new()
 
-static func get_instance() -> loading_manager:
-	if instance:
-		return instance
-
-	instance = loading_manager.new()
-
-	return instance
+func _ready() -> void:
+	add_child(screen)
 
 func get_asset_path(filename: String):
 	return "res://assets/{0}".format([filename])
 
-func start_loading(callback: Callable) -> void:
+func start(callback: Callable) -> void:
 	after_load_code = callback
 	is_loading = true
 
-	for l in loads:
-		var path: String = l[0]
+	for f in files:
+		var path: String = f[0]
 
 		ResourceLoader.load_threaded_request(get_asset_path(path))
 
@@ -37,9 +30,9 @@ func _process(_delta: float) -> void:
 	if not is_loading:
 		return
 
-	for l in loads:
-		var path: String = l[0]
-		var callback: Callable = l[1]
+	for f in files:
+		var path: String = f[0]
+		var callback: Callable = f[1]
 
 		var status := ResourceLoader.load_threaded_get_status(get_asset_path(path))
 
@@ -49,16 +42,16 @@ func _process(_delta: float) -> void:
 				callback.call(res)
 				loaded += 1
 
-	if loaded == loads.size():
+	if loaded == files.size():
 		is_loading = false
 		event.loading_finished.emit()
-		end_loading()
+		end()
 
 		return
 
-	event.progress = float(loaded) / loads.size()
+	event.progress = float(loaded) / files.size()
 
-func end_loading():
+func end():
 	loaded = 0
-	loads.clear()
+	files.clear()
 	after_load_code.call()

@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-class_name loading_screen_default
+class_name loading_screen
 
 var is_loading := false
 var is_transitioning := false

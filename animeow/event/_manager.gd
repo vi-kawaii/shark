@@ -13,12 +13,12 @@ var progress: float:
 		progress = x
 		progress_updated.emit()
 
-signal camera_rig_changed
+signal camera_changed
 
-var camera_rig: Node3D:
+var camera: Node3D:
 	set(x):
-		camera_rig = x
-		camera_rig_changed.emit()
+		camera = x
+		camera_changed.emit()
 
 @warning_ignore("unused_signal")
 signal weapon_changed

@@ -1,6 +1,6 @@
 extends Control
 
-class_name hud_default
+class_name ui_hud
 
 var weapon_label: Label
 
