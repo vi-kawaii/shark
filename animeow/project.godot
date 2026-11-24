@@ -22,12 +22,12 @@ weapon="*res://weapon/_manager.gd"
 inventory="*res://inventory/_manager.gd"
 ui="*res://ui/_manager.gd"
 save="*res://save/_manager.gd"
-camera="*res://camera/_manager.gd"
-player="*res://player/_manager.gd"
 environment="*res://env/_manager.gd"
-map="*res://map/_manager.gd"
 net="*res://net/_manager.gd"
 loading="*res://loading/_manager.gd"
+player="*res://player/_manager.gd"
+camera="*res://camera/_manager.gd"
+map="*res://map/_manager.gd"
 
 [display]
 

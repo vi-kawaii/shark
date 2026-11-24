@@ -1,5 +1,8 @@
 extends Node3D
 
+@onready var map := map_manager.new()
+@onready var player := player_manager.new()
+
 func _ready():
 	get_tree().set_auto_accept_quit(false)
 	loading.start(game)

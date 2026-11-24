@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+class_name player_manager
+
 @onready var state := player_state.new()
 @onready var speed := player_speed.new()
 @onready var physics := player_physics.new()
@@ -8,9 +10,11 @@ extends CharacterBody3D
 var _default_height: float
 var _capsule: CapsuleShape3D
 
+var is_active: bool
+
 var idxs: Array[int]
 
-@onready var cam: Camera3D
+@onready var cam: camera_third_person
 
 func _ready() -> void:
 	#idxs = loading.append_array([
@@ -18,6 +22,7 @@ func _ready() -> void:
 	#	"res://player/test_huge2.png",
 	#	"res://player/test_huge3.png"
 	#])
+	#map.created.connect(make_active)
 	camera.third_person.created.connect(use_camera)
 
 	var collision := CollisionShape3D.new()
@@ -37,8 +42,13 @@ func _ready() -> void:
 	_default_height = _capsule.height
 
 func use_camera():
-	cam = camera.third_person.cam
-	cam.make_current()
+	cam = camera.third_person
+	cam.cam.make_current()
+	cam.reparent(self)
+
+func make_active():
+	is_active = true
+	global_position.y += 2
 
 func _physics_process(delta: float) -> void:
 	if not cam:
