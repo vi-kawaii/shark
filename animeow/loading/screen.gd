@@ -25,7 +25,7 @@ func _ready() -> void:
 
 func create_ui() -> void:
 	background = ColorRect.new()
-	background.color = Color.BLACK
+	background.color = Color.WHITE
 	background.mouse_filter = Control.MOUSE_FILTER_STOP
 	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	background.modulate.a = 1.0
@@ -40,13 +40,13 @@ func create_ui() -> void:
 	background.add_child(container)
 
 	progress_bg = ColorRect.new()
-	progress_bg.color = Color(0.22, 0.22, 0.22, 1.0)
+	progress_bg.color = Color(0.85, 0.85, 0.85, 1.0)
 	progress_bg.size = Vector2(360, 3)
 	progress_bg.position = Vector2(0, 0)
 	container.add_child(progress_bg)
 
 	progress_fill = ColorRect.new()
-	progress_fill.color = Color.WHITE
+	progress_fill.color = Color.BLACK
 	progress_fill.size = Vector2(0, 3)
 	progress_fill.position = Vector2.ZERO
 	container.add_child(progress_fill)
@@ -94,7 +94,7 @@ func finished() -> void:
 
 func finish_loading() -> void:
 	await create_tween().tween_property(progress_fill, "size:x", 360.0, 0.5).finished
-	await create_tween().tween_property(container, "modulate:a", 0.0, 0.5).finished
+	await create_tween().tween_property(container, "modulate:a", 0.0, 1.0).finished
 	await create_tween().tween_property(background, "modulate:a", 0.0, 1.0).finished
 
 	is_loading = false

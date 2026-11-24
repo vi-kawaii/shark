@@ -17,11 +17,11 @@ var idxs: Array[int]
 @onready var cam: camera_third_person
 
 func _ready() -> void:
-	#idxs = loading.append_array([
-	#	"res://player/test_huge.png",
-	#	"res://player/test_huge2.png",
-	#	"res://player/test_huge3.png"
-	#])
+	idxs = loading.append_array([
+		"res://player/test_huge.png",
+		"res://player/test_huge2.png",
+		"res://player/test_huge3.png"
+	])
 	#map.created.connect(make_active)
 	camera.third_person.created.connect(use_camera)
 

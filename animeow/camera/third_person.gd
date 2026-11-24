@@ -36,7 +36,7 @@ func _ready() -> void:
 	zoom.target = clampf(spring_arm.spring_length, zoom.minimum, zoom.maximum)
 	zoom.current = zoom.target
 
-func _unhandled_input(e: InputEvent) -> void:
+func _input(e: InputEvent) -> void:
 	if e is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		rot.yaw.target -= e.relative.x * mouse.sensitivity
 		rot.pitch.target -= e.relative.y * mouse.sensitivity
