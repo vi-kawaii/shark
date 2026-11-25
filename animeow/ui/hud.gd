@@ -2,10 +2,13 @@ extends Control
 
 class_name ui_hud
 
-var weapon_label: Label
+var weapon_labels: Array[Label]
+
+var weapon_box: VBoxContainer
 
 func _ready():
 	weapon.hand.changed.connect(update_weapon)
+	inventory.weapon.changed.connect(update_labels)
 
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -39,19 +42,17 @@ func _ready():
 	add_child(map_label)
 
 	# ПРАВЫЙ НИЖНИЙ УГОЛ - оружие и патроны
-	var weapon_box = VBoxContainer.new()
+	weapon_box = VBoxContainer.new()
 	weapon_box.anchor_left = 1.0
 	weapon_box.anchor_right = 1.0
 	weapon_box.anchor_top = 1.0
 	weapon_box.anchor_bottom = 1.0
 	weapon_box.offset_left = -200
 	weapon_box.offset_right = -10
-	weapon_box.offset_top = -60
-
-	weapon_label = Label.new()
-	weapon_label.text = "Оружие: АК-47"
-	weapon_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	weapon_box.add_child(weapon_label)
+	weapon_box.offset_top = -10
+	weapon_box.offset_bottom = -10
+	# Заставляем контейнер автоматически расти вверх при добавлении новых строк:
+	weapon_box.grow_vertical = Control.GROW_DIRECTION_BEGIN
 
 	var ammo_label = Label.new()
 	ammo_label.text = "Патроны: 30 / 120"
@@ -60,5 +61,32 @@ func _ready():
 
 	add_child(weapon_box)
 
+func add_weapon(title: String) -> Label:
+	var l = Label.new()
+	l.text = title
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+
+	#weapon_labels.append(l)
+
+	return l
+
 func update_weapon():
-	weapon_label.text = "Оружие: " + weapon.hand.name
+	for w in weapon_labels:
+		var clean_name = w.text.replace("Активно: ", "")
+		if clean_name == weapon.hand.name:
+			w.text = "Активно: {0}".format([clean_name])
+		else:
+			w.text = clean_name
+
+func update_labels():
+	for w: Label in weapon_labels:
+		w.queue_free()
+
+	weapon_labels.clear()
+
+	for w: String in inventory.weapon.weapons:
+		var l := add_weapon(w)
+		weapon_box.add_child(l)
+		weapon_labels.append(l)
+
+	update_weapon()

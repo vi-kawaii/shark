@@ -7,7 +7,21 @@ extends Control
 
 @onready var server = $HTTPServer
 
+var _dummy_output = RefCounted.new()
+
 func _ready():
+	if DisplayServer.has_method("register_additional_output"):
+		DisplayServer.register_additional_output(_dummy_output)
+
+	await get_tree().process_frame
+
+	# Делаем окно прозрачным для кликов (мышь проходит сквозь него на рабочий стол)
+	var polygon = PackedVector2Array([Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1)])
+	DisplayServer.window_set_mouse_passthrough(polygon)
+
+	# Сворачиваем окно в панель задач (благодаря register_additional_output Spout не встанет)
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MINIMIZED)
+
 	print("hi world, its shark 🦈")
 
 	var s = save.read()
