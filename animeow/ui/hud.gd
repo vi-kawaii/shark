@@ -2,8 +2,6 @@ extends Control
 
 class_name ui_hud
 
-var weapon_labels: Array[Label]
-
 var weapon_box: VBoxContainer
 
 func _ready():
@@ -71,22 +69,19 @@ func add_weapon(title: String) -> Label:
 	return l
 
 func update_weapon():
-	for w in weapon_labels:
-		var clean_name = w.text.replace("Активно: ", "")
+	for w in weapon_box.get_children():
+		var clean_name = w.text.replace("[", "").replace("]", "")
 		if clean_name == weapon.hand.name:
-			w.text = "Активно: {0}".format([clean_name])
+			w.text = "[{0}]".format([clean_name])
 		else:
 			w.text = clean_name
 
 func update_labels():
-	for w: Label in weapon_labels:
+	for w: Label in weapon_box.get_children():
 		w.queue_free()
-
-	weapon_labels.clear()
 
 	for w: String in inventory.weapon.weapons:
 		var l := add_weapon(w)
 		weapon_box.add_child(l)
-		weapon_labels.append(l)
 
 	update_weapon()

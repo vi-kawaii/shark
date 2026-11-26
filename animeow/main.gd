@@ -13,11 +13,11 @@ func game():
 
 	save.local.data.visits += 1
 
-	weapon.equip("Бита")
-	weapon.equip("Пистолет")
-	weapon.equip("Автомат")
-	weapon.equip("Винтовка")
-	weapon.equip("Граната")
+	weapon.equip("1. Бита")
+	weapon.equip("2. Пистолет")
+	weapon.equip("3. Автомат")
+	weapon.equip("4. Винтовка")
+	weapon.equip("5. Граната")
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
