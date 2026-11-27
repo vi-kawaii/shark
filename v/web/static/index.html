@@ -1,6 +1,15 @@
-<button id="change">Change emotion</button>
-<script>
-document.querySelector("#change").onclick = function() {
-	fetch("/").then(res => res.text()).then(txt => console.log(txt))
+<style>
+
+:root {
+	color-scheme: dark;
 }
+
+</style>
+
+<button id="change">Change emotion</button>
+
+<script>
+
+change.onclick = async () => console.log(await (await fetch('/')).text());
+
 </script>
