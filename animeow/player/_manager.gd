@@ -14,17 +14,12 @@ var is_active: bool
 
 var idxs: Array[int]
 
-@onready var cam: camera_third_person
-
 func _ready() -> void:
 	#idxs = loading.append_array([
 	#	"res://player/test_huge.png",
 	#	"res://player/test_huge2.png",
 	#	"res://player/test_huge3.png"
 	#])
-	#map.created.connect(make_active)
-	camera.third_person.created.connect(use_camera)
-
 	var collision := CollisionShape3D.new()
 	collision.shape = CapsuleShape3D.new()
 	add_child(collision)
@@ -41,19 +36,12 @@ func _ready() -> void:
 	_capsule = collision.shape as CapsuleShape3D
 	_default_height = _capsule.height
 
-func use_camera():
-	cam = camera.third_person
-	cam.cam.make_current()
-	cam.reparent(self)
+	camera.cam.make_current()
+	camera.third_person.target = self
 
-func make_active():
-	is_active = true
 	global_position.y += 2
 
 func _physics_process(delta: float) -> void:
-	if not cam:
-		return
-
 	_handle_crouch()
 	_handle_horizontal(delta)
 	_handle_vertical(delta)
@@ -66,11 +54,11 @@ func _handle_crouch() -> void:
 
 	state.crouch = want_crouch
 	_capsule.height = crouch.get_capsule_height(_default_height, state.crouch)
-	cam.position.y = crouch.get_camera_height(state.crouch)
+	camera.cam.position.y = crouch.get_camera_height(state.crouch)
 
 func _handle_horizontal(delta) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	var direction: Vector3 = (cam.get_yaw_basis() * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction: Vector3 = (camera.get_yaw_basis() * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
 	if direction.length() > 0.1:
 		var s := speed.get_value(_current_move_mode())

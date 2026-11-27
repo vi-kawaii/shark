@@ -1,16 +1,13 @@
 extends Node
 
-var third_person := camera_third_person.new()
+var cam := Camera3D.new()
 
-var offset := Vector3(0.7, 0.3, 0.0)
-var cam: Camera3D
+var third_person := camera_third_person.new()
+var aim := camera_aim.new()
 
 func _ready() -> void:
 	add_child(third_person)
-	cam = third_person.cam
+	add_child(aim)
 
-func _process(_delta: float) -> void:
-	if not cam:
-		return
-
-	cam.global_position = cam.global_position + cam.global_transform.basis * offset
+func get_yaw_basis() -> Basis:
+	return Basis(Vector3.UP, cam.rotation.y)
