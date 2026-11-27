@@ -13,6 +13,7 @@ var spring_arm: SpringArm3D
 
 func _ready() -> void:
 	top_level = true
+	process_physics_priority = 100
 
 	spring_arm = SpringArm3D.new()
 	var sphere := SphereShape3D.new()
@@ -39,8 +40,6 @@ func _input(e: InputEvent) -> void:
 		rot.yaw.target -= e.relative.x * mouse.sensitivity
 		rot.pitch.target -= e.relative.y * mouse.sensitivity
 		rot.pitch.target = clampf(rot.pitch.target, rot.pitch.minimum, rot.pitch.maximum)
-		rot.yaw.velocity = -e.relative.x * mouse.sensitivity
-		rot.pitch.velocity = -e.relative.y * mouse.sensitivity
 
 	if e is InputEventMouseButton and e.pressed:
 		if e.button_index == MOUSE_BUTTON_WHEEL_UP:
@@ -52,14 +51,8 @@ func _physics_process(delta: float) -> void:
 	if target:
 		global_position = target.global_position
 
-	rot.yaw.velocity = lerpf(rot.yaw.velocity, 0.0, delta * movement.smoothness)
-	rot.pitch.velocity = lerpf(rot.pitch.velocity, 0.0, delta * movement.smoothness)
-
-	rot.yaw.target += rot.yaw.velocity * delta
-	rot.pitch.target = clampf(rot.pitch.target + rot.pitch.velocity * delta, rot.pitch.minimum, rot.pitch.maximum)
-
-	rot.yaw.current = lerp_angle(rot.yaw.current, rot.yaw.target, delta * 20.0)
-	rot.pitch.current = lerpf(rot.pitch.current, rot.pitch.target, delta * 20.0)
+	rot.yaw.current = lerp_angle(rot.yaw.current, rot.yaw.target, delta * rot.smoothness)
+	rot.pitch.current = lerpf(rot.pitch.current, rot.pitch.target, delta * rot.smoothness)
 	zoom.current = lerpf(zoom.current, zoom.target, delta * zoom.smoothness)
 
 	rotation.y = rot.yaw.current
