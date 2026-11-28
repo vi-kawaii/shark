@@ -7,7 +7,13 @@ extends Control
 
 @onready var server = $HTTPServer
 
-#var _dummy_output = RefCounted.new()
+var html = """
+<style>:root{color-scheme:dark;}</style>
+<button id="change">Change emotion</button>
+<script>
+change.onclick = async () => console.log(await (await fetch('/')).text());
+</script>
+"""
 
 func _ready():
 	var icon = preload("res://assets/avatar.png").get_image()
@@ -24,22 +30,22 @@ func _ready():
 
 	print("hi world, its shark 🦈")
 
-	var s = save.read()
-	if s == null:
-		s = savefile.new()
-		s.data = {"visits": 0}
-	s.data.visits = int(s.data.get("visits", 0)) + 1
-	save.write(s)
+	# var s = save.read()
+	# if s == null:
+	# 	s = savefile.new()
+	# 	s.data = {"visits": 0}
+	# s.data.visits = int(s.data.get("visits", 0)) + 1
+	# save.write(s)
 
-	print("shark visits = ", s.data.visits)
+	# print("shark visits = ", s.data.visits)
 
 	add_child(preview)
 	add_child(control_panel)
 
-	server.use(StaticFileMiddleware.new())
 	server.router.handle_get("/", func(_p, _q, _h, _b):
-		var string="Hello world, the counter of shark visits is {0}".format([save.data.visits])
-		return HTTPResponse.ok(string)
+		var res = HTTPResponse.ok(html)
+		res.set_header("Content-Type", "text/html; charset=utf-8")
+		return res
 	)
 	server.start(8080)
 
